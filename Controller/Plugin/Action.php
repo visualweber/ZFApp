@@ -6,5 +6,5 @@
  * @author			toan@xgoon.com
  *
  */
-abstract class App_Controller_Plugin_Action extends Zend_Controller_Plugin_Abstract {
+class App_Controller_Plugin_Action extends Zend_Controller_Plugin_Abstract {
 }
