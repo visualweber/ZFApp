@@ -62,13 +62,17 @@ class App_Service_Cron_Adapter_Sendmail implements App_Service_Cron_Interface {
 				try {
 					$view->datas = $res;					
 					$body = $view->render('rename_username_unicode.phtml');					
-					$mail = new Zend_Mail ( 'UTF-8' );
-					$mail->clearRecipients ();
-					$mail->setBodyHtml ( $body );
-					$mail->setFrom ( $config->resources->mail->defaultReplyTo->email, $config->resources->mail->defaultReplyTo->name );
-					$mail->addTo ( $res['email'], $res['username'] );
-					$mail->setSubject ( 'Thong bao thay doi tai khoan' );
-					$mail->send ();
+					$smtp = new Zend_Mail ( 'UTF-8' );
+					$smtp->clearRecipients ();
+					$smtp->setBodyHtml ( $body );
+					$smtp->addTo ( $res['email'], $res['username'] );
+                    //if (file_exists($filename)) {
+                        //$attachment = file_get_contents($filename);                    
+                        //$smtp->createAttachment($attachment, 'application/octet-stream', 'attachment', 'base64', $report['fileName']);
+                        //unlink($filename);// after done, remove file in server
+                    //}
+					$smtp->setSubject ( 'Thong bao thay doi tai khoan' );
+					$smtp->send ();
 					$message = "Sent mail success to \n";
 					$message .= "Params: \n" . var_export ( $res, true ) . "\n";
 					$message .= "-------------------------------\n\n\n";
