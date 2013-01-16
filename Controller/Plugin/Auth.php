@@ -49,5 +49,4 @@ abstract class App_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstrac
 	 * @since  11.2
 	 */
 	const STATUS_UNKNOWN = 32;
-    
 }
