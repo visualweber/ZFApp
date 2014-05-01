@@ -10,7 +10,7 @@
 //		$objCapchar->text_angle_maximum = 0;
 //		$objCapchar->text_minimum_distance		= 10;
 //		$objCapchar->text_maximum_distance		= 10;
-//		$objCapchar->show(XMVN_ROOT . '/data/captcha/bg_capcha_register.gif');
+//		$objCapchar->show(PATH_PROJECT . '/data/captcha/bg_capcha_register.gif');
 //		$objCapchar->getKeyString();
 
 

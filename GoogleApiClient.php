@@ -2,8 +2,8 @@
 /**
  * @see Facebook
  */
-include_once (XMVN_ROOT . '/library/Vendor/GoogleApiClient/src/apiClient.php');
-include_once (XMVN_ROOT . '/library/Vendor/GoogleApiClient/src/contrib/apiPlusService.php');
+include_once (PATH_PROJECT . '/library/Vendor/GoogleApiClient/src/apiClient.php');
+include_once (PATH_PROJECT . '/library/Vendor/GoogleApiClient/src/contrib/apiPlusService.php');
 class App_GoogleApiClient {
 	private $clientId = null;
 	private $clientSecret = null;

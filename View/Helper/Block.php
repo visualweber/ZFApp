@@ -7,7 +7,7 @@
  * @package    App.Platform
  * @subpackage		App_View_Helper_Block
  * @license			http://xgoon.com
- * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
+ * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
  * @author			huy.do@xgoon.com (xgoon)
  * @implements		Toan LE
  * @file			Block.php

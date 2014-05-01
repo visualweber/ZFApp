@@ -7,7 +7,7 @@
  * @package    App.Platform
  * @subpackage		App_Application_Resource_Log
  * @license			http://xgoon.com
- * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
+ * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
  * @author			Toan LE <contact@xgoon.com>
  * @implements		Toan LE
  * @file			Log.php

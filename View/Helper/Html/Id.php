@@ -7,7 +7,7 @@
  * @package    App.Platform
  * @subpackage		App_Admin_View_Helper_Html_Grid
  * @license			http://xgoon.com
- * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
+ * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
  * @author			toan@xgoon.com (toan)
  * @file			Grid.php
  *

@@ -476,8 +476,8 @@ class App_Util {
 	 */
 	public static function generateCaptcha($render = false, $format = '%s %s', $field_name = 'captcha') {
 		require_once ('Zend/Captcha/Image.php');
-		$imgDir = XMVN_ROOT . "/htdocs/images/captcha";
-		$captcha = new Zend_Captcha_Image ( array ('wordLen' => 5, 'font' => XMVN_ROOT . '/data/fonts/Glasten_Bold.ttf', 'imgDir' => $imgDir, 'imgUrl' => '/images/captcha', 'width' => 120, 'height' => 40, 'dotNoiseLevel' => 0, 'lineNoiseLevel' => 0 ) );
+		$imgDir = PATH_PROJECT . "/htdocs/images/captcha";
+		$captcha = new Zend_Captcha_Image ( array ('wordLen' => 5, 'font' => PATH_PROJECT . '/data/fonts/Glasten_Bold.ttf', 'imgDir' => $imgDir, 'imgUrl' => '/images/captcha', 'width' => 120, 'height' => 40, 'dotNoiseLevel' => 0, 'lineNoiseLevel' => 0 ) );
 		$captcha->setFontSize ( '18' );
 		$id = $captcha->generate ();
 		$input = '<input type="text" name="' . $field_name . '[input]" value="" /><input type="hidden" value="' . $captcha->getId () . '" name="' . $field_name . '[id]" />';
@@ -527,7 +527,7 @@ class App_Util {
 	
 	public static function getLogger($logPath = "/data/logs/register-email.log") {
 		$logger = new Zend_Log ();
-		$writer = new Zend_Log_Writer_Stream ( XMVN_ROOT . $logPath );
+		$writer = new Zend_Log_Writer_Stream ( PATH_PROJECT . $logPath );
 		$logger->addWriter ( $writer );
 		$logger->registerErrorHandler ();
 		

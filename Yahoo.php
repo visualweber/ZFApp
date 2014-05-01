@@ -2,8 +2,8 @@
 /**
  * @see Yahoo
  */
-include_once XMVN_ROOT . '/library/Vendor/Yahoo/lib/OAuth/OAuth.php';
-include_once XMVN_ROOT . '/library/Vendor/Yahoo/lib/Yahoo/YahooOAuthApplication.class.php';
+include_once PATH_PROJECT . '/library/Vendor/Yahoo/lib/OAuth/OAuth.php';
+include_once PATH_PROJECT . '/library/Vendor/Yahoo/lib/Yahoo/YahooOAuthApplication.class.php';
 class App_Yahoo {
 	private $key = null;
 	private $secret = null;
