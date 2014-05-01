@@ -1,20 +1,34 @@
 <?php
 
 /**
- * Here're your description about this file and its function
+ * @package     Platform
+ * @subpackage  FileSystem
  *
- * @version			$Id: Dir.php Jul 27, 2010 2:58:56 PM$
- * @category		Kernel
- * @package			Kernel Package
- * @subpackage		App_Filesystem_Dir
- * @license			http://xgoon.com
- * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
- * @author			toan@xgoon.com (toan)
- * @implements		Toan LE
- * @file			Dir.php
- *
+ * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE
  */
-class App_Filesystem_Dir {
+
+/**
+ * A Path handling class
+ *
+ * @package     Platform
+ * @subpackage  FileSystem
+ * @since       11.1
+ */
+class App_Filesystem_Folder {
+
+    /**
+     * Wrapper for the standard file_exists function
+     *
+     * @param   string  $path  Folder name relative to installation dir
+     *
+     * @return  boolean  True if path is a folder
+     *
+     * @since   11.1
+     */
+    public static function exists($path) {
+        return is_dir(App_Filesystem_Path::clean($path));
+    }
 
     /**
      * Checks if a path's permissions can be changed
@@ -52,7 +66,7 @@ class App_Filesystem_Dir {
                 if ($file != '.' && $file != '..') {
                     $fullpath = $path . '/' . $file;
                     if (is_dir($fullpath)) {
-                        if (!App_Filesystem_Dir::setPermissions($fullpath, $filemode, $foldermode)) {
+                        if (!App_Filesystem_Folder::setPermissions($fullpath, $filemode, $foldermode)) {
                             $ret = false;
                         }
                     } else {
@@ -85,7 +99,7 @@ class App_Filesystem_Dir {
      * @return	string	Filesystem permissions
      */
     public static function getPermissions($path) {
-        $path = App_Filesystem_Dir::clean($path);
+        $path = App_Filesystem_Folder::clean($path);
         $mode = @ decoct(@ fileperms($path) & 0777);
 
         if (strlen($mode) < 3) {
@@ -151,6 +165,106 @@ class App_Filesystem_Dir {
     }
 
     /**
+     * Create a folder -- and all necessary parent folders.
+     *
+     * @param   string   $path  A path to create from the base path.
+     * @param   integer  $mode  Directory permissions to set for folders created. 0755 by default.
+     *
+     * @return  boolean  True if successful.
+     *
+     * @since   11.1
+     */
+    public static function create($path = '', $mode = 0755) {
+        static $nested = 0;
+        if (Zend_Registry::isRegistered('logger')):
+            $logger = Zend_Registry::get('logger');
+        endif;
+
+        // Check to make sure the path valid and clean
+        $path = App_Filesystem_Path::clean($path);
+
+        // Check if parent dir exists
+        $parent = dirname($path);
+
+        if (!self::exists($parent)) {
+            // Prevent infinite loops!
+            $nested++;
+
+            if (($nested > 20) || ($parent == $path)) {
+                $logger->getLog('genmodel')->log(__METHOD__ . ': Infinite loop detected', Zend_Log::WARN);
+                $nested--;
+
+                return false;
+            }
+
+            // Create the parent directory
+            if (self::create($parent, $mode) !== true) {
+                // JFolder::create throws an error
+                $nested--;
+
+                return false;
+            }
+
+            // OK, parent directory has been created
+            $nested--;
+        }
+
+        // Check if dir already exists
+        if (self::exists($path)) {
+            return true;
+        }
+
+        // Check for safe mode
+        // We need to get and explode the open_basedir paths
+        $obd = ini_get('open_basedir');
+
+        // If open_basedir is set we need to get the open_basedir that the path is in
+        if ($obd != null) {
+            if (IS_WIN) {
+                $obdSeparator = ";";
+            } else {
+                $obdSeparator = ":";
+            }
+
+            // Create the array of open_basedir paths
+            $obdArray = explode($obdSeparator, $obd);
+            $inBaseDir = false;
+
+            // Iterate through open_basedir paths looking for a match
+            foreach ($obdArray as $test) {
+                $test = App_Filesystem_Path::clean($test);
+
+                if (strpos($path, $test) === 0) {
+                    $inBaseDir = true;
+                    break;
+                }
+            }
+            if ($inBaseDir == false) {
+                // Return false for JFolder::create because the path to be created is not in open_basedir
+                $logger->getLog('genmodel')->log(__METHOD__ . ': Path not in open_basedir paths', Zend_Log::WARN);
+
+                return false;
+            }
+        }
+
+        // First set umask
+        $origmask = @umask(0);
+
+        // Create the path
+        if (!$ret = @mkdir($path, $mode)) {
+            @umask($origmask);
+            $logger->getLog('genmodel')->log(__METHOD__ . ': Could not create directory ' . 'Path: ' . $path, Zend_Log::WARN);
+
+            return false;
+        }
+
+        // Reset umask
+        @umask($origmask);
+
+        return $ret;
+    }
+
+    /**
      * this is getting a little extreme i know
      * but it will help out later when we want to keep updated indexes
      * for right now, not much
@@ -173,7 +287,7 @@ class App_Filesystem_Dir {
      * @param string $path
      */
     public static function makeRecursive($base, $path) {
-        $pathArray = explode('/', $path);
+        $pathArray = explode(DS, $path);
         if (is_array($pathArray)) {
             $strPath = null;
             foreach ($pathArray as $path) {
@@ -221,7 +335,7 @@ class App_Filesystem_Dir {
 
                 $Entry = $source . '/' . $entry;
                 if (is_dir($Entry)) {
-                    App_Filesystem_Directory_Writer::copyRecursive($Entry, $target . '/' . $entry);
+                    App_Filesystem_Folderectory_Writer::copyRecursive($Entry, $target . '/' . $entry);
                     continue;
                 }
                 copy($Entry, $target . '/' . $entry);
@@ -259,7 +373,7 @@ class App_Filesystem_Dir {
                 endif;
 
                 if (is_dir($object)):
-                    App_Filesystem_Dir::deleteRecursive($object);
+                    App_Filesystem_Folder::deleteRecursive($object);
                 endif;
 
                 if (is_file($object)):

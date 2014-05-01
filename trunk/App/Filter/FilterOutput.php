@@ -1,9 +1,9 @@
 <?php
 /**
  * @version			$Id: Dir.php Jul 27, 2010 2:58:56 PM$
- * @category		Kernel
- * @package			Kernel Package
- * @subpackage		App_Filesystem_Dir
+ * @category		FileSystem
+ * @package			FileSystem Package
+ * @subpackage		App_Filesystem_Folder
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
  * @author			toan@xgoon.com (toan)
