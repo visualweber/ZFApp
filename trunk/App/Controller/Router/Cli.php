@@ -7,8 +7,8 @@ require_once 'Zend/Controller/Router/Interface.php';
 /**
  * App_Controller_Request_Cli
  *
- * @category   Kernel
- * @package    App_Controller
+ * @category    App
+ * @package    App.Platform
  * @subpackage Router
  * @see http://blog.astrumfutura.com/archives/418-The-Mysteries-Of-Asynchronous-Processing-With-PHP-Part-2-Making-Zend-Framework-Applications-CLI-Accessible.html
  */

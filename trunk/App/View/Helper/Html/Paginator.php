@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: Pagination.php 29-07-2010 02:00:02$
- * @category		ZFAdmin
- * @package			ZFAdmin Package
+ * @category    App
+ * @package    App.Platform
  * @subpackage		subpackage
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

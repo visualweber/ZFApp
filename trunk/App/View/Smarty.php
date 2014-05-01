@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: Smarty.php Aug 17, 2010 2:04:02 PM$
- * @category		ZFAdmin
- * @package			ZFAdmin Package
+ * @category    App
+ * @package    App.Platform
  * @subpackage		subpackage
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

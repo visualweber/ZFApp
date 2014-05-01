@@ -2,8 +2,8 @@
 /**
  * Base Template for Core_Mailer
  *
- * @category Core
- * @package  Core_Mailer
+ * @category    App
+ * @package    App.Platform
  *
  * @version  $Id: Template.php 146 2010-07-05 14:22:20Z AntonShevchuk $
  */

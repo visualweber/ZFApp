@@ -7,8 +7,8 @@ require_once 'Zend/Controller/Action/Helper/Abstract.php';
 /**
  * App_Controller_Action_Helper_Cache
  *
- * @category   Kernel
- * @package    App_Controller
+ * @category    App
+ * @package    App.Platform
  * @subpackage Action
  * @see http://blog.astrumfutura.com/archives/381-Zend-Framework-Page-Caching-Part-2-Controller-Based-Cache-Management.html
  */

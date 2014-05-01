@@ -2,8 +2,8 @@
 /**
  * Load specific layout per module
  *
- * @category   Kernel
- * @package    App_Controller
+ * @category    App
+ * @package    App.Platform
  * @subpackage Plugin
  * @see  http://blog.vandenbos.org/2009/07/19/zend-framework-module-specific-layout/
  */

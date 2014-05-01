@@ -4,8 +4,8 @@
  *
  * Base model class for models that have acl support
  *
- * @category   Kernel
- * @package    App_Model
+ * @category    App
+ * @package    App.Platform
  */
 abstract class App_Model_Acl_Abstract extends App_Model_Abstract implements App_Model_Acl_Interface, Zend_Acl_Resource_Interface
 {

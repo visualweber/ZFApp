@@ -4,8 +4,8 @@
  * The main purpose of the base model is to provide models with a way
  * of handling their resources.
  *
- * @category   Kernel
- * @package    App_Model
+ * @category    App
+ * @package    App.Platform
  */
 abstract class App_Model_Abstract implements App_Model_Interface
 {

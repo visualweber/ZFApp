@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: Block.php 12 Sep 2010 19:09:21$
- * @category		App_View_Helper_Block
- * @package			Kernel Package
+ * @category    App
+ * @package    App.Platform
  * @subpackage		App_View_Helper_Block
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

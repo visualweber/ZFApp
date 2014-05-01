@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package     Platform
+ * @package    App.Platform
  * @subpackage  FileSystem
  *
  * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
@@ -11,7 +11,7 @@
 /**
  * A Path handling class
  *
- * @package     Platform
+ * @package    App.Platform
  * @subpackage  FileSystem
  * @since       11.1
  */

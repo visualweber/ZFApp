@@ -8,8 +8,8 @@ require_once 'Kernel/Image/Exception.php';
 /**
  * Exception for App_Image_Driver*.
  *
- * @category    Kernel
- * @package     App_Image
+ * @category    App
+ * @package    App.Platform
  * @subpackage  App_Image_Driver
  * @author      Stanislav Seletskiy <s.seletskiy@office.ngs.ru>
  * @author      Leonid A Shagabutdinov <leonid@shagabutdinov.com>

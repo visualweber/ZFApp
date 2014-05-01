@@ -2,8 +2,8 @@
 /**
  * Core_Mailer_Mail Adapter for Zend_Mail
  *
- * @category   Core
- * @package    Core_Mailer
+ * @category    App
+ * @package    App.Platform
  * @subpackage Transport
  *
  * @version  $Id: ZendMail.php 151 2010-07-08 09:07:58Z AntonShevchuk $

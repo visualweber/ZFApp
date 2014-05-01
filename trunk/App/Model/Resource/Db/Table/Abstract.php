@@ -3,8 +3,8 @@
  * Provides some common db functionality that is shared
  * across our db-based resources.
  *
- * @category   Kernel
- * @package    App_Model_Resource
+ * @category    App
+ * @package    App.Platform
  */
 abstract class App_Model_Resource_Db_Table_Abstract extends Zend_Db_Table_Abstract implements App_Model_Resource_Db_Interface
 {

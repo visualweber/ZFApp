@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: Log.php 02-08-2010 00:59:39$
- * @category		App_Application
- * @package			Kernel Package
+ * @category    Appn
+ * @package    App.Platform
  * @subpackage		App_Application_Resource_Log
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

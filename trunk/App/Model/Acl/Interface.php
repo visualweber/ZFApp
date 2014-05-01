@@ -2,8 +2,8 @@
 /**
  * App_Model_Acl_Interface
  *
- * @category   Kernel
- * @package    App_Model_Acl
+ * @category    App
+ * @package    App.Platform
  */
 interface App_Model_Acl_Interface
 {

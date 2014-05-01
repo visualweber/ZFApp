@@ -14,8 +14,8 @@ require_once 'Kernel/Image/Driver/Abstract.php';
 /**
  * GdImage driver
  *
- * @category    Kernel
- * @package     App_Image
+ * @category    App
+ * @package    App.Platform
  * @subpackage  App_Image_Driver
  * @author      Leonid A Shagabutdinov <leonid@shagabutdinov.com>
  * @author      Stanislav Seletskiy <s.seletskiy@office.ngs.ru>

@@ -2,8 +2,8 @@
 /**
  * Set Db metadata cache
  *
- * @category   Core
- * @package    Core_Application
+ * @category    App
+ * App.Platform
  * @subpackage Resource
  *
  * @version  $Id$

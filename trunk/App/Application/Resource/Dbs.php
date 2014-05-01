@@ -2,8 +2,8 @@
 /**
  * Kernel Library
  *
- * @category   Kernel
- * @package    App_Application
+ * @category    App
+ * @package    App.Platform
  * @subpackage Resource
  * @see  http://blog.keppens.biz/2009/04/zendapplication-multiple-databases.html
  */
@@ -12,8 +12,8 @@
  * Resource for creating multiple database adapters
  *
  * @uses       Zend_Application_Resource_Base
- * @category   Kernel
- * @package    App_Application
+ * @category    App
+ * @package    App.Platform
  * @subpackage Resource
  * @see  http://blog.keppens.biz/2009/04/zendapplication-multiple-databases.html
  */

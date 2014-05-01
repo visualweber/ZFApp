@@ -2,8 +2,8 @@
 /**
  * Core_Mailer_Mail Adapter for PHPMailer
  *
- * @category   Core
- * @package    Core_Mailer
+ * @category    App
+ * @package    App.Platform
  * @subpackage Transport
  *
  * @version  $Id: PHPMailer.php 136 2010-06-16 14:30:42Z AntonShevchuk $

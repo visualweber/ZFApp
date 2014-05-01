@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: SimpleImage.php Jul 27, 2010 2:07:54 PM$
- * @category		Kernel
- * @package			App_SimpleImage Package
+ * @category    App
+ * @package	App.Platform
  * @subpackage		App_SimpleImage
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

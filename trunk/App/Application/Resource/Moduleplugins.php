@@ -2,8 +2,8 @@
 /**
  * Kernel Library
  *
- * @category   Kernel
- * @package    App_Application
+ * @category    App
+ * @package    App.Platform
  * @subpackage Resource
  * @see http://blog.vandenbos.org/2009/07/07/zend-framework-module-config/
  */
@@ -12,8 +12,8 @@
  * Resource for loading plugins per module
  *
  * @uses       Zend_Application_Resource_Base
- * @category   Kernel
- * @package    App_Application
+ * @category    App
+ * @package    App.Platform
  * @subpackage Resource
  * @see http://blog.vandenbos.org/2009/07/07/zend-framework-module-config/
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package     Platform
+ * @package    App.Platform
  * @subpackage  FileSystem
  *
  * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
@@ -11,7 +11,7 @@
 /**
  * A Path handling class
  *
- * @package     Platform
+ * @package    App.Platform
  * @subpackage  FileSystem
  * @since       11.1
  */
@@ -129,7 +129,7 @@ class App_Filesystem_Folder {
         $path = trim($path);
 
         if (empty($path)) {
-            $path = BASE_PATH;
+            $path = PATH_PROJECT;
         } else {
             // Remove double slashes and backslahses and convert all slashes and backslashes to DS
             $path = preg_replace('#[/\\\\]+#', $ds, $path);
@@ -265,43 +265,81 @@ class App_Filesystem_Folder {
     }
 
     /**
-     * this is getting a little extreme i know
-     * but it will help out later when we want to keep updated indexes
-     * for right now, not much
+     * Copy a folder.
      *
-     * @param unknown_type $path
+     * @param   string   $src          The path to the source folder.
+     * @param   string   $dest         The path to the destination folder.
+     * @param   string   $path         An optional base path to prefix to the file names.
+     * @param   boolean  $force        Force copy.
+     * @param   boolean  $use_streams  Optionally force folder/file overwrites.
+     *
+     * @return  boolean  True on success.
+     *
+     * @since   11.1
+     * @throws  RuntimeException
      */
-    public static function make($path) {
-        return @mkdir($path, 0755);
-    }
+    public static function copy($src, $dest, $path = '', $force = false, $use_streams = false) {
+        @set_time_limit(ini_get('max_execution_time'));
+        if (Zend_Registry::isRegistered('logger')):
+            $logger = Zend_Registry::get('logger');
+        endif;
 
-    /**
-     * adds a complete directory path
-     * eg: /my/own/path
-     * will create
-     * >my
-     * >>own
-     * >>>path
-     *
-     * @param string $base
-     * @param string $path
-     */
-    public static function makeRecursive($base, $path) {
-        $pathArray = explode(DS, $path);
-        if (is_array($pathArray)) {
-            $strPath = null;
-            foreach ($pathArray as $path) {
-                if (!empty($path)) {
-                    $strPath .= '/' . $path;
-                    if (!is_dir($base . $strPath)) {
-                        if (!self::make($base . $strPath)) {
-                            return false;
+        if ($path) {
+            $src = JPath::clean($path . '/' . $src);
+            $dest = JPath::clean($path . '/' . $dest);
+        }
+
+        // Eliminate trailing directory separators, if any
+        $src = rtrim($src, DIRECTORY_SEPARATOR);
+        $dest = rtrim($dest, DIRECTORY_SEPARATOR);
+
+        if (!self::exists($src)) {
+            throw new RuntimeException('Source folder not found', -1);
+        }
+        if (self::exists($dest) && !$force) {
+            throw new RuntimeException('Destination folder not found', -1);
+        }
+
+        // Make sure the destination exists
+        if (!self::create($dest)) {
+            throw new RuntimeException('Cannot create destination folder', -1);
+        }
+
+        if (!($dh = @opendir($src))) {
+            throw new RuntimeException('Cannot open source folder', -1);
+        }
+        // Walk through the directory copying files and recursing into folders.
+        while (($file = readdir($dh)) !== false) {
+            $sfid = $src . '/' . $file;
+            $dfid = $dest . '/' . $file;
+
+            switch (filetype($sfid)) {
+                case 'dir':
+                    if ($file != '.' && $file != '..') {
+                        $ret = self::copy($sfid, $dfid, null, $force, $use_streams);
+
+                        if ($ret !== true) {
+                            return $ret;
                         }
                     }
-                }
+                    break;
+
+                case 'file':
+                    if ($use_streams) {
+                        $stream = JFactory::getStream();
+
+                        if (!$stream->copy($sfid, $dfid)) {
+                            throw new RuntimeException('Cannot copy file: ' . $stream->getError(), -1);
+                        }
+                    } else {
+                        if (!@copy($sfid, $dfid)) {
+                            throw new RuntimeException('Copy file failed', -1);
+                        }
+                    }
+                    break;
             }
-            return true;
         }
+        return true;
     }
 
     /**
@@ -313,37 +351,6 @@ class App_Filesystem_Folder {
     public static function rename($source, $newName) {
         if (is_dir($source)) {
             return rename($source, $newName);
-        }
-    }
-
-    /**
-     * copies a directory recursively
-     * if you want to move the directory then follow this with deleteRecursive()...
-     * @param string $source
-     * @param string $target
-     */
-    public static function copyRecursive($source, $target) {
-        if (is_dir($source)) {
-            @mkdir($target);
-
-            $d = dir($source);
-
-            while (false !== ($entry = $d->read())) {
-                if ($entry == '.' || $entry == '..') {
-                    continue;
-                }
-
-                $Entry = $source . '/' . $entry;
-                if (is_dir($Entry)) {
-                    App_Filesystem_Folderectory_Writer::copyRecursive($Entry, $target . '/' . $entry);
-                    continue;
-                }
-                copy($Entry, $target . '/' . $entry);
-            }
-
-            $d->close();
-        } else {
-            copy($source, $target);
         }
     }
 

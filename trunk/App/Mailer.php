@@ -37,7 +37,7 @@
  *                                       'toEmail' => 'george@bush.com'));
  * </code>
  *
- * @category Core
+ * @category    App
  * @package  App_Mailer
  *
  * @version  $Id: Mailer.php 136 2010-06-16 14:30:42Z AntonShevchuk $

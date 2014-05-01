@@ -4,8 +4,8 @@
  *
  * TODO: need realization
  *
- * @category   Core
- * @package    Core_Mailer
+ * @category    App
+ * @package    App.Platform
  * @subpackage Storage
  *
  * @version  $Id: DbTable.php 162 2010-07-12 14:58:58Z AntonShevchuk $

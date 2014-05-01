@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: Exception.php 16 Aug 2010 00:40:14$
- * @category		ZFAdmin
- * @package			ZFAdmin Package
+ * @category    App
+ * @package    App.Platform
  * @subpackage		subpackage
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

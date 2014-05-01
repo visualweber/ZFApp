@@ -3,8 +3,8 @@
  * Here're your description about this file and its function
  *
  * @version			$Id: Action.php 07-08-2010 15:45:54$
- * @category		ZFAdmin
- * @package			ZFAdmin Package
+ * @category    App
+ * @package    App.Platform
  * @subpackage		subpackage
  * @license			http://xgoon.com/license
  * @copyright		Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved. (http://xgoon.com)

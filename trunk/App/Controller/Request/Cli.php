@@ -8,8 +8,8 @@ require_once 'Zend/Controller/Request/Abstract.php';
  * App_Controller_Request_Cli
  *
  * @uses Zend_Console_Getopt
- * @category   Kernel
- * @package    App_Controller
+ * @category    App
+ * @package    App.Platform
  * @subpackage Request
  * @see http://blog.astrumfutura.com/archives/418-The-Mysteries-Of-Asynchronous-Processing-With-PHP-Part-2-Making-Zend-Framework-Applications-CLI-Accessible.html
  */

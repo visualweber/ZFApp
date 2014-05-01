@@ -3,8 +3,8 @@
  * App_Model_Interface
  * All models use this interface
  *
- * @category   Kernel
- * @package    App_Model
+ * @category    App
+ * @package    App.Platform
  */
 interface App_Model_Interface
 {
