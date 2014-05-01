@@ -1,23 +1,23 @@
 <?php
 /**
- * Digitalus CMS
+ * App Platform
  *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://digitalus-media.com/license/new-bsd
+ * http://www.xgoon.com/license/new-bsd
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to info@digitalus-media.com so we can send you a copy immediately.
+ * to info@www.xgoon.com so we can send you a copy immediately.
  *
- * @category    Digitalus CMS
- * @package     Digitalus
- * @subpackage  Digitalus_Filter
- * @copyright   Copyright (c) 2007 - 2010,  Digitalus Media USA (digitalus-media.com)
- * @license     http://digitalus-media.com/license/new-bsd     New BSD License
- * @version     $Id: Post.php 767 2010-05-04 19:22:01Z lowtower@gmx.de $
+ * @category    App
+ * @package    App.Platform
+ * @subpackage  App.PlatformFilter
+ * @copyright   Copyright (c) 2007 - 2010,  XGOON MEDIA VIETNAM (www.xgoon.com)
+ * @license     http://www.xgoon.com/license/new-bsd     New BSD License
+ * @version     $Id: Post.php 767 2010-05-04 19:22:01Z contact@xgoon.com $
  */
 
 class App_Filter_Post

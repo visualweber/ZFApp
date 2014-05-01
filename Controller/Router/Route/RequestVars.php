@@ -8,7 +8,7 @@ require_once 'Zend/Controller/Router/Route/Interface.php';
 /**
  * Route
  *
- * @package    App_Controller
+ * @package    App.Platform
  * @subpackage Router
  * @copyright  Copyright (c) 2008 Rob Allen (rob@akrabat.com)
  */

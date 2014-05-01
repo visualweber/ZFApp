@@ -16,7 +16,7 @@
  * to quality.
  *
  * @category 	App
- * @package 	App >> Base model
+ * @package 	App.Platform
  * @copyright 	Copyright (c) 2005-2011 XGOON MEDIA.
  * @license 	http://www.xgoon.com
  * @version 	App version 1.0.0

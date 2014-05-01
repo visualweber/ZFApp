@@ -1,16 +1,5 @@
 <?php
-/**
- *      Bushido
- *
- * @category   Bushido
- * @package    Bushido_Application
- * @subpackage Resource
- * @copyright  Copyright (c) 2008-2009 Nathan Keyes
- * @author Nathan Keyes
- * @version    $Id: Dbmulticonnection.php 429 2009-08-19 19:51:33Z Nathan Keyes $
- */
-
-class Bushido_Application_Resource_Dbmulticonnection extends Zend_Application_Resource_ResourceAbstract
+class App_Application_Resource_Dbmulticonnection extends Zend_Application_Resource_ResourceAbstract
 {
      protected $_databases = array ();
 

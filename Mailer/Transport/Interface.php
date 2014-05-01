@@ -2,8 +2,8 @@
 /**
  * Interface for Core_Mailer_Mail adapters
  *
- * @category   Core
- * @package    Core_Mailer
+ * @category    App
+ * @package    App.Platform
  * @subpackage Transport
  *
  * @version  $Id: Interface.php 48 2010-02-12 13:23:39Z AntonShevchuk $

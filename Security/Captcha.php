@@ -46,7 +46,7 @@ define ( 'SI_IMAGE_GIF', 3 );
 /**
  * Securimage CAPTCHA Class.
  *
- * @package    Securimage
+ * @package    App.Platform
  * @subpackage classes
  *
  */

@@ -3,8 +3,8 @@
  * App_Model_Resource_Db_Table_Row_Abstract
  * Composite the Zend_Db_Table_Row
  *
- * @category   Kernel
- * @package    App_Model_Resource
+ * @category    App
+ * @package    App.Platform
  */
 abstract class App_Model_Resource_Db_Table_Row_Abstract
 {

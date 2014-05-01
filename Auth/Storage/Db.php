@@ -16,7 +16,7 @@
  * to quality.
  *
  * @category 	App
- * @package 	App >> Base model
+ * @package 	App.Platform
  * @copyright 	Copyright (c) 2005-2011 XGOON MEDIA.
  * @license 	http://www.xgoon.com
  * @version 	App version 1.0.0
@@ -26,8 +26,8 @@
 require_once 'Zend/Auth/Storage/Interface.php';
 
 /**
- * @category   	Zend
- * @package    	Zend_Auth
+ * @category    App
+ * @package    App.Platform
  * @subpackage 	Storage
  * @copyright  	Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    	http://framework.zend.com/license/new-bsd     New BSD License

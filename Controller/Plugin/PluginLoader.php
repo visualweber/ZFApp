@@ -2,8 +2,8 @@
 /**
  * Load specific plugins per module
  *
- * @category   Kernel
- * @package    App_Controller
+ * @category    App
+ * @package    App.Platform
  * @subpackage Plugin
  * @see http://blog.vandenbos.org/2009/09/03/zend-framework-module-specific-frontcontroller-plugins/
  */

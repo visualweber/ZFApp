@@ -33,7 +33,7 @@ class App_Util_Regex extends App_Util
         if ($asArray == true) {
             return array('location' => $new, 'suffix' => $suf);
         } else {
-            return $new; // use this return for standard Digitalus setup
+            return $new;
         }
 
     }

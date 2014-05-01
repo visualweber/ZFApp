@@ -8,8 +8,8 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.txt.
  *
- * @category  Kernel
- * @package   App_Image
+ * @category    App
+ * @package    App.Platform
  * @author    Stanislav Seletskiy <s.seletskiy@gmail.com>
  * @author    Leonid Shagabutdinov <leonid@shagabutdinov.com>
  * @copyright Copyright (c) 2010
@@ -33,8 +33,8 @@ require_once 'Kernel/Image/Transform/Exception.php';
  * @todo Negative values for crop.
  * @todo Asserts, that position methods are not called together.
  * @todo phpDoc descriptions.
- * @category  Kernel
- * @package   App_Image
+ * @category    App
+ * @package    App.Platform
  * @copyright Copyright (c) 2010
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  */

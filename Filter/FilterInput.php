@@ -3,8 +3,8 @@
  * App_Filter_FilterInput is a class for filtering input from any data source
  *
  * @version			$Id: Dir.php Jul 27, 2010 2:58:56 PM$
- * @category		FileSystem
- * @package			FileSystem Package
+ * @category    App
+ * @package    App.Platform
  * @subpackage		App_Filesystem_Folder
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

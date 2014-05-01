@@ -2,8 +2,8 @@
 /**
  * Base Kernel Exception Class
  *
- * @category   Kernel
- * @package    Gsc_Core
+ * @category    App
+ * @package    App.Platform
  */
 class App_Exception extends Exception
 {}

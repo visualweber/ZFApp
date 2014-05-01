@@ -3,8 +3,8 @@
  * Interface for Core_Mailer adapters
  * Currently only Directory and DbTable supported
  *
- * @category   Core
- * @package    Core_Mailer
+ * @category    App
+ * @package    App.Platform
  * @subpackage Storage
  *
  * @version  $Id: Interface.php 48 2010-02-12 13:23:39Z AntonShevchuk $

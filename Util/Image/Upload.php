@@ -4,7 +4,7 @@
  *
  * @version			$Id: KernelUpload.php Jul 27, 2010 2:07:54 PM$
  * @category		App_Util_Upload
- * @package			App_Util_Upload Package
+ * @package    App.Platform
  * @subpackage		App_Util_Upload
  * @license			http://xgoon.com
  * @copyright		Copyright (c) 2005-2011 XGOON MEDIA

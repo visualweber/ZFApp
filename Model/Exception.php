@@ -2,8 +2,8 @@
 /**
  * App_Model_Exception
  *
- * @category   Kernel
- * @package    App_Model
+ * @category    App
+ * @package    App.Platform
  */
 class App_Model_Exception extends App_Exception
 {}

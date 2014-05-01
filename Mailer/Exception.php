@@ -5,8 +5,8 @@
 require_once 'Core/Exception.php';
 
 /**
- * @category   Core
- * @package    Core_Mailer
+ * @category    App
+ * @package    App.Platform
  *
  * @version  $Id: Exception.php 48 2010-02-12 13:23:39Z AntonShevchuk $
  */

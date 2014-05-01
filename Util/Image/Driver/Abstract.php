@@ -8,8 +8,8 @@ require_once 'Kernel/Image/Driver/Exception.php';
 /**
  * Abstract class for drivers
  *
- * @category    Kernel
- * @package     App_Image
+ * @category    App
+ * @package    App.Platform
  * @subpackage  App_Image_Driver
  * @author      Stanislav Seletskiy <s.seletskiy@office.ngs.ru>
  * @author      Leonid A Shagabutdinov <leonid@shagabutdinov.com>
