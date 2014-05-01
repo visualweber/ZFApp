@@ -1,23 +1,19 @@
 <?php
 
 /**
- * VN-SECURE CMS
+ * @package     Platform
+ * @subpackage  FileSystem
  *
- * LICENSE
+ * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE
+ */
+
+/**
+ * A Path handling class
  *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://vn-secure.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to info@vn-secure.com so we can send you a copy immediately.
- *
- * @category   VN-SECURE CMS
- * @package    App_Core_Library
- * @copyright  Copyright (c) 2007 - 2008,  VN-SECURE VIETNAM (vn-secure.com)
- * @license    http://vn-secure.com/license/new-bsd     New BSD License
- * @version    $Id: Dir.php Tue Dec 25 20:38:14 EST 2007 20:38:14 forrest lyman $
+ * @package     Platform
+ * @subpackage  FileSystem
+ * @since       11.1
  */
 
 class App_Filesystem_File
@@ -201,7 +197,7 @@ class App_Filesystem_File
             $path = App_Toolbox_String::stripLeading('/', $path);
             if ($createPath) {
                 //attempt to create the new path
-                App_Filesystem_Dir::makeRecursive($base, $path);
+                App_Filesystem_Folder::makeRecursive($base, $path);
             }
 
             //clean the filename
