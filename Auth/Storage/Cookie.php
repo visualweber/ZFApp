@@ -20,7 +20,7 @@
  * @copyright 	Copyright (c) 2005-2011 XGOON MEDIA.
  * @license 	http://www.xgoon.com
  * @version 	App version 1.0.0
- * @author 		toan@xgoon.com
+ * @author 	toan@xgoon.com <vnnfree@gmail.com>
  * @implement 	Name of developer
  */
 class App_Auth_Storage_Cookie implements App_Auth_Storage_Interface {
