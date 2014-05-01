@@ -2,7 +2,7 @@
 /**
  * @see Facebook
  */
-include_once (XMVN_ROOT . '/library/Vendor/Facebook/facebook.php');
+include_once (PATH_PROJECT . '/library/Vendor/Facebook/facebook.php');
 class App_Facebook {
 	private $appId = null;
 	private $secret = null;

@@ -5,7 +5,7 @@
  * @package    App.Platform
  * @subpackage		App_Filesystem_Folder
  * @license			http://xgoon.com
- * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
+ * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
  * @author			toan@xgoon.com (toan)
  * @implements		Toan LE
  * @file			Dir.php

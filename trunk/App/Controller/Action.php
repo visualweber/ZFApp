@@ -4,7 +4,7 @@
  *
  * @version			$Id: Action.php 16 Aug 2010 00:39:33$
  * @license			http://xgoon.com
- * @copyright		Copyright (c) 2005-2011 XGOON MEDIA
+ * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
  * @author			Toan LE <contact@xgoon.com>
  * @implements		Toan LE
  * @file			Action.php
