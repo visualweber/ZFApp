@@ -15,9 +15,8 @@
  * @subpackage  FileSystem
  * @since       11.1
  */
+class App_Filesystem_File {
 
-class App_Filesystem_File
-{
     /**
      * this returns an array of all of the files of a set type in a directory path
      * if type is an array then it will return all files of the types in the array ( $types = array('png', 'jpg', 'gif'); )
@@ -26,8 +25,7 @@ class App_Filesystem_File
      * @param mixed $type, the file extension to return
      * @param string $appendPath, the path to append to the returned files
      */
-    public static function getFilesByType($path, $type = false, $appendPath = false, $includeExtension = true)
-    {
+    public static function getFilesByType($path, $type = false, $appendPath = false, $includeExtension = true) {
         if (is_dir($path)) {
             $dir = scandir($path); //open directory and get contents
             if (is_array($dir)) { //it found files
@@ -39,11 +37,11 @@ class App_Filesystem_File
                             if (is_array($fileParts)) {
                                 $fileType = array_pop($fileParts);
                                 $file = implode('.', $fileParts);
-                                 
+
                                 //check whether the filetypes were passed as an array or string
                                 if (is_array($type)) {
                                     if (in_array($fileType, $type)) {
-                                        $filePath =  $appendPath . $file;
+                                        $filePath = $appendPath . $file;
                                         if ($includeExtension == true) {
                                             $filePath .= '.' . $fileType;
                                         }
@@ -51,7 +49,7 @@ class App_Filesystem_File
                                     }
                                 } else {
                                     if ($fileType == $type) {
-                                        $filePath =  $appendPath . $file;
+                                        $filePath = $appendPath . $file;
                                         if ($includeExtension == true) {
                                             $filePath .= '.' . $fileType;
                                         }
@@ -79,15 +77,27 @@ class App_Filesystem_File
      * @param string $content
      * @return string
      */
-    public static function saveFile($path, $content)
-    {
+    public static function saveFile($path, $content) {
         $content = stripslashes($content);
         try {
             file_put_contents($path, $content);
             return 'Your page was saved successfully';
-        } catch(Zend_Exception $e) {
+        } catch (Zend_Exception $e) {
             return 'Sorry, there was an error saving your page';
         }
+    }
+
+    /**
+     * Wrapper for the standard file_exists function
+     *
+     * @param   string  $file  File path
+     *
+     * @return  boolean  True if path is a file
+     *
+     * @since   11.1
+     */
+    public static function exists($file) {
+        return is_file(App_Filesystem_Path::clean($file));
     }
 
     /**
@@ -96,8 +106,7 @@ class App_Filesystem_File
      * @param string $source
      * @param string $newName
      */
-    public static function rename($source, $newName)
-    {
+    public static function rename($source, $newName) {
         if (file_exists($source)) {
             rename($source, $newName);
         }
@@ -110,9 +119,8 @@ class App_Filesystem_File
      * @param string $target
      * @return bool
      */
-    public static function copy( $source, $target )
-    {
-        if (file_exists( $source )) {
+    public static function copy($source, $target) {
+        if (file_exists($source)) {
             return copy($source, $target);
         }
     }
@@ -123,8 +131,7 @@ class App_Filesystem_File
      * @param string $source
      * @param string $target
      */
-    public static function move($source, $target)
-    {
+    public static function move($source, $target) {
         if (file_exists($source)) {
             rename($source, $target);
         }
@@ -135,8 +142,7 @@ class App_Filesystem_File
      *
      * @param string $path
      */
-    public static function delete($path)
-    {
+    public static function delete($path) {
         @unlink($path);
     }
 
@@ -147,16 +153,14 @@ class App_Filesystem_File
      *
      * @param string $fileName
      */
-    public static function cleanFilename($fileName)
-    {
+    public static function cleanFilename($fileName) {
         $fileName = str_replace('../', '', $fileName);
         $fileName = str_replace('./', '', $fileName);
         $fileName = str_replace(' ', '_', $fileName);
         return $fileName;
     }
 
-    public static function getFileExtension($filename)
-    {
+    public static function getFileExtension($filename) {
         if (!empty($filename)) {
             $fileparts = explode(".", $filename);
             if (is_array($fileparts)) {
@@ -168,8 +172,7 @@ class App_Filesystem_File
         return null;
     }
 
-    public static function isUploaded($key)
-    {
+    public static function isUploaded($key) {
         if ($_FILES[$key] && !empty($_FILES[$key]['tmp_name'])) {
             return true;
         }
@@ -186,8 +189,7 @@ class App_Filesystem_File
      * @param string $filename
      * @param bool $createPath
      */
-    public static function upload($key, $path, $filename = false, $createPath = true, $base = './')
-    {
+    public static function upload($key, $path, $filename = false, $createPath = true, $base = './') {
         if (self::isUploaded($key)) {
             //default to the name on the client machine
             if (!$filename) {
