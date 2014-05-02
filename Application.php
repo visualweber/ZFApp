@@ -34,13 +34,6 @@ class App_Application extends Zend_Application {
     protected static $_instance = null;
 
     /**
-     * doogleonduty application cache
-     *
-     * @var Zend_Cache
-     */
-    protected $_app_cache;
-
-    /**
      * Constructor
      *
      * Initialize application. Potentially initializes include_paths, PHP
@@ -54,37 +47,13 @@ class App_Application extends Zend_Application {
      * @return void
      */
     public function __construct($environment, $options = null) {
-        $this->initCache();
         parent::__construct($environment, $options);
-    }
-
-    /**
-     * init the caching for doogle application
-     */
-    protected function initCache() {
-        $frontendOpts = array(
-            'caching' => true, 'lifetime' => 1800, 'automatic_serialization' => true);
-
-        $backendOpts = array(
-            'cache_dir' => PATH_PROJECT . '/data/cache', 'servers' => array(
-                array(
-                    'host' => 'localhost', 'port' => 11211)), 'compression' => false);
-
-        if (is_null($this->_app_cache)) {
-            if (Zend_Registry::isRegistered('app_config_cache')) {
-                $this->_app_cache = Zend_Registry::get('app_config_cache');
-            } else {
-                $this->_app_cache = Zend_Cache::factory('Core', 'File', $frontendOpts, $backendOpts);
-                Zend_Registry::set('app_config_cache', $this->_app_cache);
-            }
-        }
     }
 
     /**
      * Load configuration from file
      */
-    protected function loadConfigFile($file) {
-
+    private function loadConfigFile($file) {
         $environment = $this->getEnvironment();
         $suffix = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
@@ -140,32 +109,18 @@ class App_Application extends Zend_Application {
         $environment = $this->getEnvironment();
 
         $suffix = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        $index = '_app_cache' . $environment . $suffix;
-        // $index = base64_encode($index);
-
+        $index = 'application_cache_' . $environment . '_' . $suffix;
         if ($environment != 'production') {
             $config = $this->loadConfigFile($file)->toArray();
         } else {
             // load configuration from cache for other environments
             if (!$config = $this->_app_cache->load($index)) {
                 $config = $this->loadConfigFile($file);
-                $return = $config->toArray();
                 $this->_app_cache->save($config->toArray(), $index);
             }
         }
-
         Zend_Registry::set('config', $config);
         return $config;
-    }
-
-    public static function autoload($path) {
-        $in_path = str_replace('_', '/', $path) . '.php';
-        if (file_exists(PATH_LIB . DS . $in_path)) {
-            include_once (PATH_LIB . DS . $in_path);
-        } elseif (file_exists(PATH_LIB . DS . $in_path)) {
-            include_once (PATH_LIB . DS . $in_path);
-        }
-        return $path;
     }
 
     /**
