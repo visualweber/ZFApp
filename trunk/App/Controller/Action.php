@@ -2,12 +2,12 @@
 /**
  * Here're your description about this file and its function
  *
- * @version			$Id: Action.php 16 Aug 2010 00:39:33$
- * @license			http://xgoon.com
+ * @version		$Id: Action.php 16 Aug 2010 00:39:33$
+ * @license		http://xgoon.com
  * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
- * @author			Toan LE <contact@xgoon.com>
+ * @author		Toan LE <contact@xgoon.com>
  * @implements		Toan LE
- * @file			Action.php
+ * @file		Action.php
  *
  */
 
