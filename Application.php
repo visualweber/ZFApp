@@ -80,6 +80,7 @@ class App_Application extends Zend_Application {
 
         if ($config instanceof Zend_Config) {
             $ini_path = $config->get('ini_path_extends', '');
+
             if ($ini_path) {
                 $dir = new DirectoryIterator($ini_path);
                 foreach ($dir as $fileinfo) {
