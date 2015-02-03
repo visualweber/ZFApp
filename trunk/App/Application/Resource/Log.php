@@ -6,9 +6,9 @@
  * @category    Appn
  * @package    App.Platform
  * @subpackage		App_Application_Resource_Log
- * @license			http://xgoon.com
- * @copyright		Copyright (c) 2010-2014 XGOON MEDIA VIETNAM
- * @author			Toan LE <contact@xgoon.com>
+ * @license			http://visualweber.com
+ * @copyright		Copyright (c) 2010-2014 Visual Weber
+ * @author			Toan LE <contact@visualweber.com>
  * @implements		Toan LE
  * @file			Log.php
  *
