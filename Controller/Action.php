@@ -58,11 +58,10 @@ class App_Controller_Action extends Zend_Controller_Action {
         $router = $this->getFrontController()->getRouter();
         $router->addRoute('requestVars', new App_Controller_Router_Route_RequestVars());
 
-        if (Zend_Registry::isRegistered('config'))
+        if (Zend_Registry::isRegistered('config')):
             $this->config = Zend_Registry::get('config');
-
+        endif;
         $this->view->config = $this->config;
-
         $this->initLanguage();
     }
 
