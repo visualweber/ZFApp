@@ -38,7 +38,7 @@ class App_Auth extends Zend_Auth {
      *
      * @return Zend_Auth Provides a fluent interface
      */
-    public static function getInstance() {
+    public static function getInstance() {exit;
         if (null === self::$_instance) {
             // self::$_instance = new self();  
         }
