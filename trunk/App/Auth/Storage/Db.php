@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Visual Weber Company Limited
  *
@@ -34,59 +35,62 @@ require_once 'Zend/Auth/Storage/Interface.php';
  * @desc 		Session will be save to database
  */
 class App_Auth_Storage_Db implements App_Auth_Storage_Interface {
-	/**
-	 * Storage object member / from base on model
-	 *
-	 * @var mixed
-	 */
-	protected $_storage;
-	
-	/**
-	 * Specific session_id in database
-	 * @var String
-	 */
-	protected $_session_id;
-	
-	/**
-	 * recognizes a valid session by checking certain additional information stored in the session
-	 * often recommended as protection against session fixation/hijacking - but doesnt make much sense
-	 * Zend-Framework supports session validators to validate sessions
-	 * @return unknown_type
-	 */
-	public function __construct() {
-		try {
-			if (! Zend_Session::isStarted ())
-				Zend_Session::start ();
-		} catch ( Zend_Session_Exception $e ) {
-			Zend_Session::destroy ();
-			Zend_Session::start ();
-			Zend_Session::regenerateId ();
-		}
-		
-		Zend_Session::registerValidator ( new Zend_Session_Validator_HttpUserAgent ( ) );
-	}
-	
-	// Check session in database
-	public function isEmpty() {
-		return $this->_storage->isEmpty ( $this->_session_id );
-	}
-	
-	/**
-	 * Read session from database
-	 * @see library/Zend/Auth/Storage/Zend_Auth_Storage_Interface#read()
-	 */
-	public function read() {
-		return $this->_storage->read ( $this->_session_id );
-	}
-	
-	/**
-	 * Write session to database
-	 * @see library/Zend/Auth/Storage/Zend_Auth_Storage_Interface#write($contents)
-	 */
-	public function write() {
-	}
-	
-	public function clear() {
-		$this->_storage->clear ( $this->_session_id );
-	}
+
+    /**
+     * Storage object member / from base on model
+     *
+     * @var mixed
+     */
+    protected $_storage;
+
+    /**
+     * Specific session_id in database
+     * @var String
+     */
+    protected $_session_id;
+
+    /**
+     * recognizes a valid session by checking certain additional information stored in the session
+     * often recommended as protection against session fixation/hijacking - but doesnt make much sense
+     * Zend-Framework supports session validators to validate sessions
+     * @return unknown_type
+     */
+    public function __construct() {
+        try {
+            if (!Zend_Session::isStarted())
+                Zend_Session::start();
+        } catch (Zend_Session_Exception $e) {
+            Zend_Session::destroy();
+            Zend_Session::start();
+            Zend_Session::regenerateId();
+        }
+
+        Zend_Session::registerValidator(new Zend_Session_Validator_HttpUserAgent());
+    }
+
+    // Check session in database
+    public function isEmpty() {
+        return $this->_storage->isEmpty($this->_session_id);
+    }
+
+    /**
+     * Read session from database
+     * @see library/Zend/Auth/Storage/Zend_Auth_Storage_Interface#read()
+     */
+    public function read() {
+        return $this->_storage->read($this->_session_id);
+    }
+
+    /**
+     * Write session to database
+     * @see library/Zend/Auth/Storage/Zend_Auth_Storage_Interface#write($contents)
+     */
+    public function write() {
+        
+    }
+
+    public function clear() {
+        $this->_storage->clear($this->_session_id);
+    }
+
 }
