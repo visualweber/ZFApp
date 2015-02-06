@@ -2,7 +2,7 @@
 
 class App_Util_Util {
 
-    public function alias($str) {
+    public static function alias($str) {
         $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", "a", $str);
         $str = preg_replace("/(B)/", "b", $str);
         $str = preg_replace("/(C)/", "c", $str);
