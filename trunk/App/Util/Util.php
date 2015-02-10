@@ -34,4 +34,88 @@ class App_Util_Util {
         return $str;
     }
 
+    public static function wordLimit($str, $limit = 100, $strip_tags = true, $end_char = ' &#8230;') {
+        if (trim($str) == '') {
+            return $str;
+        }
+
+        if ($strip_tags) {
+            $str = trim(preg_replace('#<[^>]+>#', ' ', $str));
+        }
+        $words = explode(' ', $str);
+        $words = array_filter($words);
+        $string = '';
+        if (count($words) > $limit) {
+            $i = 0;
+            foreach ($words as $word) {
+                if ($i < $limit) {
+                    $string.=$word . ' ';
+                    $i++;
+                } else {
+                    break;
+                }
+            }
+        } else {
+            $string = $str;
+        }
+
+        $string = self::removeSpace($string);
+
+        return rtrim($string) . $end_char;
+    }
+
+    public static function characterLimit($str, $limit = 150, $strip_tags = true, $end_char = ' &#8230;', $enc = 'utf-8') {
+        if (trim($str) == '') {
+            return $str;
+        }
+
+        // Remove readmore tag from JCE
+        $str = self::getReadmoreText($str);
+
+        // always strip tags for text
+        $str = self::remmoveImgTag($str);
+
+        // Remove tag <p></p>
+        $str = self::removeSpace($str);
+
+        if ($strip_tags) {
+            $str = strip_tags($str);
+        }
+
+        if (strlen($str) > $limit) {
+            if (function_exists("mb_substr")) {
+                $str = mb_substr($str, 0, $limit, $enc);
+            } else {
+                $str = substr($str, 0, $limit);
+            }
+            return rtrim($str) . $end_char;
+        } else {
+            return $str;
+        }
+    }
+
+    public static function random($length = 8, $possible = "0123456789abcdefghijklmnopqrstvwxyzABCDEFGHIJKLMNOPQRSXTUVYW") {
+        // start with a blank string
+        $string = "";
+
+        // set up a counter
+        $i = 0;
+
+        // add random characters to $string until $length is reached
+        while ($i < $length) {
+
+            // pick a random character from the possible ones
+            $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+
+            // we don't want this character if it's already in the string
+            if (!strstr($string, $char)) {
+                $string .= $char;
+                $i++;
+            }
+        }
+
+        // done!
+        return $string;
+    }
+
 }
