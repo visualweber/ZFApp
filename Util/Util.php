@@ -69,9 +69,6 @@ class App_Util_Util {
             return $str;
         }
 
-        // Remove readmore tag from JCE
-        $str = self::getReadmoreText($str);
-
         // always strip tags for text
         $str = self::remmoveImgTag($str);
 

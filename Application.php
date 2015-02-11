@@ -60,11 +60,11 @@ class App_Application extends Zend_Application {
         switch ($suffix) {
             case 'ini' :
                 $config = new Zend_Config_Ini($file, $environment, array(
-                    'allowModifications' => true));
+                            'allowModifications' => true));
                 break;
             case 'xml' :
                 $config = new Zend_Config_Xml($file, $environment, array(
-                    'allowModifications' => true));
+                            'allowModifications' => true));
                 break;
             case 'php' :
             case 'inc' :
