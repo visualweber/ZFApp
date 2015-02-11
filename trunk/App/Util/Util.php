@@ -69,12 +69,6 @@ class App_Util_Util {
             return $str;
         }
 
-        // always strip tags for text
-        $str = self::remmoveImgTag($str);
-
-        // Remove tag <p></p>
-        $str = self::removeSpace($str);
-
         if ($strip_tags) {
             $str = strip_tags($str);
         }
