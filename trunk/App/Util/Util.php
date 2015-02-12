@@ -3,7 +3,7 @@
 class App_Util_Util {
 
     public static function alias($str) {
-        $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", "a", $str);
+        $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|À|Á|Ạ|Ả|Ã|Â|A|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", "a", $str);
         $str = preg_replace("/(B)/", "b", $str);
         $str = preg_replace("/(C)/", "c", $str);
         $str = preg_replace("/(đ|D|Đ)/", "d", $str);
@@ -31,6 +31,7 @@ class App_Util_Util {
         $str = preg_replace("/(Z)/", "z", $str);
         $str = preg_replace("/(!|@|%|\^|\*|\(|\)|\+|\=|<|>|\?|\/|,|\.|\:|\;|\'|\"|\“|\”|\&|\#|\[|\]|~|$|_)/", "", $str);
         $str = str_replace("&*#39;", "", $str);
+        $str = str_replace(" ", "-", $str);
         return $str;
     }
 
@@ -107,6 +108,37 @@ class App_Util_Util {
 
         // done!
         return $string;
+    }
+
+    public static function Timer($timestamp) {
+        $etime = time() - $timestamp;
+        if ($etime < 1) {
+            return 'bây giờ';
+        }
+        $a = array(365 * 24 * 60 * 60 => 'year',
+            30 * 24 * 60 * 60 => 'month',
+            7 * 24 * 60 * 60 => 'week',
+            24 * 60 * 60 => 'day',
+            60 * 60 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+        $a_plural = array('year' => 'năm',
+            'month' => 'tháng',
+            'week' => 'tuần',
+            'day' => 'ngày',
+            'hour' => 'giờ',
+            'minute' => 'phút',
+            'second' => 'giây'
+        );
+
+        foreach ($a as $secs => $str) {
+            $d = $etime / $secs;
+            if ($d >= 1) {
+                $r = round($d);
+                return $r . ' ' . $a_plural[$str] . ' ' . 'trước';
+            }
+        }
     }
 
 }
