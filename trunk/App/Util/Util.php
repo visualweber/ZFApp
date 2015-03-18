@@ -17,7 +17,7 @@ class App_Util_Util {
         $str = preg_replace("/(L)/", "l", $str);
         $str = preg_replace("/(M)/", "m", $str);
         $str = preg_replace("/(N)/", "n", $str);
-        $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ|Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", "o", $str);
+        $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ|Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|O|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", "o", $str);
         $str = preg_replace("/(P)/", "p", $str);
         $str = preg_replace("/(Q)/", "q", $str);
         $str = preg_replace("/(R)/", "r", $str);
@@ -34,6 +34,7 @@ class App_Util_Util {
         $str = str_replace(" ", "-", $str);
         return $str;
     }
+
 
     public static function wordLimit($str, $limit = 100, $strip_tags = true, $end_char = ' &#8230;') {
         if (trim($str) == '') {
