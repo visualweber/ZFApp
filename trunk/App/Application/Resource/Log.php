@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Here're your description about this file and its function
  *
@@ -13,10 +14,7 @@
  * @file			Log.php
  *
  */
-
-
-class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbstract
-{
+class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbstract {
 
     /**
      * Logs
@@ -37,8 +35,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
      *
      * @return null|Zend_Log
      */
-    public function getLog($log = null)
-    {
+    public function getLog($log = null) {
         // check if the Log is valid
         $log = $this->isValidLog($log, true);
         if (is_null($log) && is_null($log = $this->_defaultLog)) {
@@ -47,7 +44,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
 
         $options = $this->getOptions();
         if ((!isset($this->_logs[$log]) || (null === $this->_logs[$log]))
-        && (in_array($log, array_keys($options)))
+                && (in_array($log, array_keys($options)))
         ) {
             $this->_logs[$log] = $this->_initLog($log);
         }
@@ -59,11 +56,10 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
      *
      * @return void
      */
-    public function init()
-    {
+    public function init() {
         if (is_null($this->_defaultLog)) {
             $defaultLog = null;
-            foreach ($this->_options as $key=>$logOptions) {
+            foreach ($this->_options as $key => $logOptions) {
                 if (null !== ($log = $this->getLog($key))) {
                     if ($this->isDefaultLog($key) || is_null($defaultLog)) {
                         $defaultLog = $key;
@@ -84,8 +80,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
      * @param boolean $revertToDefaultLog
      * @return string
      */
-    public function isValidLog($log = null, $revertToDefaultLog = false)
-    {
+    public function isValidLog($log = null, $revertToDefaultLog = false) {
         if (is_null($log)) {
             $revertToDefaultLog = true;
         }
@@ -104,9 +99,12 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
      *
      * @param string $key
      * @return Zend_Log
+     * 
+     * 
+     * @links:
+     * - https://ranskills.wordpress.com/2012/03/18/creating-dynamic-log-files-in-zend-framework-zf/
      */
-    protected function _initLog($key)
-    {
+    protected function _initLog($key) {
         $logOptions = $this->_options[$key];
         if (isset($logOptions['writer'])) {
             $log = new Zend_Log();
@@ -129,7 +127,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
                         $writer = new Zend_Log_Writer_Null();
                         break;
                     case 'stream':
-                        $streamOrUrl = $writerOptions['params']['streamOrUrl'];
+                        $streamOrUrl = $writerOptions['params']['streamOrUrl'] . '.' . date('d-m-Y') . '.log';
                         $mode = isset($writerOptions['params']['mode']) ? $writerOptions['params']['mode'] : 'a';
                         $writer = new Zend_Log_Writer_Stream($streamOrUrl, $mode);
                         break;
@@ -166,8 +164,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
      *
      * @return void
      */
-    public function isDefaultLog($log)
-    {
+    public function isDefaultLog($log) {
         $log = $this->isValidLog($log);
         if (isset($this->_options[$log]['isDefault'])) {
             return $this->_options[$log]['isDefault'];
