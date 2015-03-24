@@ -35,7 +35,6 @@ class App_Util_Util {
         return $str;
     }
 
-
     public static function wordLimit($str, $limit = 100, $strip_tags = true, $end_char = ' &#8230;') {
         if (trim($str) == '') {
             return $str;
@@ -237,6 +236,16 @@ class App_Util_Util {
         } else {
             // return true;
         }
+    }
+
+    public function getDateInWeek($week, $year) {
+        $time = strtotime("1 January $year", time());
+        $day = date('w', $time);
+        $time += ((7 * $week) + 1 - $day) * 24 * 3600;
+        $return[0] = date('d-m-Y', $time);
+        $time += 6 * 24 * 3600;
+        $return[1] = date('d-m-Y', $time);
+        return $return;
     }
 
 }
