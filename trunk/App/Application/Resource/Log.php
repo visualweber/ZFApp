@@ -127,7 +127,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
                         $writer = new Zend_Log_Writer_Null();
                         break;
                     case 'stream':
-                        $streamOrUrl = $writerOptions['params']['streamOrUrl'] . '.' . date('d-m-Y') . '.log';
+                        $streamOrUrl = $writerOptions['params']['streamOrUrl'] . '.' . date('dmY') . '.log';
                         $mode = isset($writerOptions['params']['mode']) ? $writerOptions['params']['mode'] : 'a';
                         $writer = new Zend_Log_Writer_Stream($streamOrUrl, $mode);
                         break;
