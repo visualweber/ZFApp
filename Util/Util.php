@@ -1,5 +1,7 @@
 <?php
 
+require 'Thumbnail/php_image_magician.php';
+
 class App_Util_Util {
 
     public static function alias($str) {
@@ -141,102 +143,109 @@ class App_Util_Util {
         }
     }
 
-    public static function resizeIMG($src_file, $dest_file, $width, $height, $prop, $quality) {
-        $imagetype = array(1 => 'GIF', 2 => 'JPG', 3 => 'PNG');
-        $imginfo = getimagesize($src_file);
-        if ($imginfo == null) {
-            $error = 'COM_IPROPERTY_NO_FILE_FOUND';
-            return $error;
-        }
-
-        $imginfo[2] = $imagetype[$imginfo[2]];
-
-        // GD can only handle JPG & PNG images
-        if ($imginfo[2] != 'JPG' && $imginfo[2] != 'GIF' && $imginfo[2] != 'PNG') {
-            $error = "GDERROR1";
-            return $error;
-        }
-
-        // source height/width
-        $srcWidth = $imginfo[0];
-        $srcHeight = $imginfo[1];
-
-        if ($prop == 1) {
-            if (!$width):
-                return 'COM_IPROPERTY_IMAGE_DIMENSIONS_INVALID'; // can't create image with 0 width and constrain proportions
-            endif;
-            // if prop, maintain proportions
-            $haveratio = $srcWidth / $srcHeight;
-            if ($haveratio == 1) { // it's square
-                $destWidth = $width;
-                $destHeight = $width;
-            } else { // it's horizontal or vertical
-                $destWidth = $width;
-                $destHeight = round($width / $haveratio);
-            }
-        } else {
-            // we don't care about the ratio, we're building to their specs
-            if (!$height || !$width):
-                return 'COM_IPROPERTY_IMAGE_DIMENSIONS_INVALID'; // can't create image with 0 width or height
-            endif;
-
-            $destWidth = (int) ($width);
-            $destHeight = (int) ($height);
-        }
-
-        if (!function_exists('imagecreatefromjpeg')) {
-            return 'GDERROR2';
-        }
-
-        if ($imginfo[2] == 'JPG') {
-            $src_img = imagecreatefromjpeg($src_file);
-        } else if ($imginfo[2] == 'GIF') {
-            $src_img = imagecreatefromgif($src_file);
-        } else if ($imginfo[2] == 'PNG') {
-            $src_img = imagecreatefrompng($src_file);
-        }
-
-        if (!$src_img):
-            return JText::_('GDERROR3');
-        endif;
-
-        if (function_exists("imagecreatetruecolor")) {
-            $dst_img = imagecreatetruecolor($destWidth, $destHeight);
-        } else {
-            $dst_img = imagecreate($destWidth, $destHeight);
-        }
-
-        if (function_exists("imagecopyresampled")) {
-            imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, (int) $destWidth, (int) $destHeight, $srcWidth, $srcHeight);
-        } else {
-            imagecopyresized($dst_img, $src_img, 0, 0, 0, 0, (int) $destWidth, (int) $destHeight, $srcWidth, $srcHeight);
-        }
-//
-//        if (!$is_thmb && $settings->watermark) {
-//            /* drop shadow watermark thanks to hkingman */
-//            $wmstr = $settings->watermark_text;
-//            $wmstr = "(c)" . date("Y") . " " . $wmstr;
-//            $ftcolor2 = imagecolorallocate($dst_img, 239, 239, 239);
-//            $ftcolor = imagecolorallocate($dst_img, 15, 15, 15);
-//            // imagestring ($dst_img, 2,10, $destHeight-20, $wmstr, $ftcolor);
-//            imagestring($dst_img, 2, 11, $destHeight - 20, $wmstr, $ftcolor);
-//            imagestring($dst_img, 2, 10, $destHeight - 21, $wmstr, $ftcolor2);
-//        }
-        imagejpeg($dst_img, $dest_file, $quality);
-        imagedestroy($src_img);
-        imagedestroy($dst_img);
-
-        // Set mode of uploaded picture
-        chmod($dest_file, octdec('644'));
-
-        // We check that the image is valid
-        $imginfo = getimagesize($dest_file);
-        if ($imginfo == null) {
-            return 'COM_IPROPERTY_IMAGE_INFO_NOT_RETURNED';
-        } else {
-            // return true;
-        }
+    public static function resizeIMG($path, $thumb_path, $width, $height, $type = "crop") {
+        $src = new imageLib($path);
+        $src->resizeImage($width, $height, $type, true);
+        $src->saveImage($thumb_path, 100);
+        return true;
     }
+
+//    public static function resizeIMG($src_file, $dest_file, $width, $height, $prop, $quality) {
+//        $imagetype = array(1 => 'GIF', 2 => 'JPG', 3 => 'PNG');
+//        $imginfo = getimagesize($src_file);
+//        if ($imginfo == null) {
+//            $error = 'COM_IPROPERTY_NO_FILE_FOUND';
+//            return $error;
+//        }
+//
+//        $imginfo[2] = $imagetype[$imginfo[2]];
+//
+//        // GD can only handle JPG & PNG images
+//        if ($imginfo[2] != 'JPG' && $imginfo[2] != 'GIF' && $imginfo[2] != 'PNG') {
+//            $error = "GDERROR1";
+//            return $error;
+//        }
+//
+//        // source height/width
+//        $srcWidth = $imginfo[0];
+//        $srcHeight = $imginfo[1];
+//
+//        if ($prop == 1) {
+//            if (!$width):
+//                return 'COM_IPROPERTY_IMAGE_DIMENSIONS_INVALID'; // can't create image with 0 width and constrain proportions
+//            endif;
+//            // if prop, maintain proportions
+//            $haveratio = $srcWidth / $srcHeight;
+//            if ($haveratio == 1) { // it's square
+//                $destWidth = $width;
+//                $destHeight = $width;
+//            } else { // it's horizontal or vertical
+//                $destWidth = $width;
+//                $destHeight = round($width / $haveratio);
+//            }
+//        } else {
+//            // we don't care about the ratio, we're building to their specs
+//            if (!$height || !$width):
+//                return 'COM_IPROPERTY_IMAGE_DIMENSIONS_INVALID'; // can't create image with 0 width or height
+//            endif;
+//
+//            $destWidth = (int) ($width);
+//            $destHeight = (int) ($height);
+//        }
+//
+//        if (!function_exists('imagecreatefromjpeg')) {
+//            return 'GDERROR2';
+//        }
+//
+//        if ($imginfo[2] == 'JPG') {
+//            $src_img = imagecreatefromjpeg($src_file);
+//        } else if ($imginfo[2] == 'GIF') {
+//            $src_img = imagecreatefromgif($src_file);
+//        } else if ($imginfo[2] == 'PNG') {
+//            $src_img = imagecreatefrompng($src_file);
+//        }
+//
+//        if (!$src_img):
+//            return JText::_('GDERROR3');
+//        endif;
+//
+//        if (function_exists("imagecreatetruecolor")) {
+//            $dst_img = imagecreatetruecolor($destWidth, $destHeight);
+//        } else {
+//            $dst_img = imagecreate($destWidth, $destHeight);
+//        }
+//
+//        if (function_exists("imagecopyresampled")) {
+//            imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, (int) $destWidth, (int) $destHeight, $srcWidth, $srcHeight);
+//        } else {
+//            imagecopyresized($dst_img, $src_img, 0, 0, 0, 0, (int) $destWidth, (int) $destHeight, $srcWidth, $srcHeight);
+//        }
+////
+////        if (!$is_thmb && $settings->watermark) {
+////            /* drop shadow watermark thanks to hkingman */
+////            $wmstr = $settings->watermark_text;
+////            $wmstr = "(c)" . date("Y") . " " . $wmstr;
+////            $ftcolor2 = imagecolorallocate($dst_img, 239, 239, 239);
+////            $ftcolor = imagecolorallocate($dst_img, 15, 15, 15);
+////            // imagestring ($dst_img, 2,10, $destHeight-20, $wmstr, $ftcolor);
+////            imagestring($dst_img, 2, 11, $destHeight - 20, $wmstr, $ftcolor);
+////            imagestring($dst_img, 2, 10, $destHeight - 21, $wmstr, $ftcolor2);
+////        }
+//        imagejpeg($dst_img, $dest_file, $quality);
+//        imagedestroy($src_img);
+//        imagedestroy($dst_img);
+//
+//        // Set mode of uploaded picture
+//        chmod($dest_file, octdec('644'));
+//
+//        // We check that the image is valid
+//        $imginfo = getimagesize($dest_file);
+//        if ($imginfo == null) {
+//            return 'COM_IPROPERTY_IMAGE_INFO_NOT_RETURNED';
+//        } else {
+//            // return true;
+//        }
+//    }
 
     public function getDateInWeek($week, $year) {
         $time = strtotime("1 January $year", time());
