@@ -1,6 +1,6 @@
 <?php
 
-require 'Thumbnail/php_image_magician.php';
+require 'Thumbnail/imageLib.php';
 
 class App_Util_Util {
 
@@ -146,7 +146,7 @@ class App_Util_Util {
     public static function resizeIMG($path, $thumb_path, $width, $height, $type = "crop") {
         $src = new imageLib($path);
         $src->resizeImage($width, $height, $type, true);
-        $src->saveImage($thumb_path, 100);
+        $src->saveImage($thumb_path);
         return true;
     }
 
