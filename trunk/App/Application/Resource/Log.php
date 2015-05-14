@@ -84,6 +84,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
         if (is_null($log)) {
             $revertToDefaultLog = true;
         }
+        
         if (!in_array($log, array_keys($this->_options))) {
             if ($revertToDefaultLog) {
                 $log = $this->_defaultLog;
