@@ -3,6 +3,68 @@
 require 'Thumbnail/imageLib.php';
 
 class App_Util_Util {
+    /*
+     * Convert to safe characters
+     * 
+     * @desc : remove the accent not '-'
+     */
+
+    public static function vt_safe_vietnamese_meta($str, $lower = true, $vietnamese = true, $special = false, $accent = false) {
+        $str = $lower ? strtolower($str) : $str;
+        // Remove Vietnamese accent or not
+        $str = $accent ? self::vt_remove_vietnamese_accent($str) : $str;
+
+        // Replace special symbols with spaces or not
+        $str = $special ? self::vt_remove_special_characters($str) : $str;
+
+        // Replace Vietnamese characters or not
+        $str = $vietnamese ? self::vt_replace_vietnamese_characters($str) : $str;
+
+        return $str;
+    }
+
+    /*
+     * Remove 5 Vietnamese accent / tone marks if has Combining Unicode characters
+     * Tone marks: Grave (`), Acute(�), Tilde (~), Hook Above (?), Dot Bellow(.)
+     */
+
+    public static function vt_remove_vietnamese_accent($str) {
+
+        $str = preg_replace("/[\x{0300}\x{0301}\x{0303}\x{0309}\x{0323}]/u", "", $str);
+
+        return $str;
+    }
+
+    /*
+     * Remove or Replace special symbols with spaces
+     */
+
+    public static function vt_remove_special_characters($str, $remove = true) {
+
+        // Remove or replace with spaces
+        $substitute = $remove ? "" : " ";
+
+        $str = preg_replace("/[\x{0021}-\x{002D}\x{002F}\x{003A}-\x{0040}\x{005B}-\x{0060}\x{007B}-\x{007E}\x{00A1}-\x{00BF}]/u", $substitute, $str);
+
+        return $str;
+    }
+
+    /*
+     * Replace Vietnamese vowels with diacritic and Letter D with Stroke with corresponding English characters
+     */
+
+    public static function vt_replace_vietnamese_characters($str) {
+
+        $str = preg_replace("/[\x{00C0}-\x{00C3}\x{00E0}-\x{00E3}\x{0102}\x{0103}\x{1EA0}-\x{1EB7}]/u", "a", $str);
+        $str = preg_replace("/[\x{00C8}-\x{00CA}\x{00E8}-\x{00EA}\x{1EB8}-\x{1EC7}]/u", "e", $str);
+        $str = preg_replace("/[\x{00CC}\x{00CD}\x{00EC}\x{00ED}\x{0128}\x{0129}\x{1EC8}-\x{1ECB}]/u", "i", $str);
+        $str = preg_replace("/[\x{00D2}-\x{00D5}\x{00F2}-\x{00F5}\x{01A0}\x{01A1}\x{1ECC}-\x{1EE3}]/u", "o", $str);
+        $str = preg_replace("/[\x{00D9}-\x{00DA}\x{00F9}-\x{00FA}\x{0168}\x{0169}\x{01AF}\x{01B0}\x{1EE4}-\x{1EF1}]/u", "u", $str);
+        $str = preg_replace("/[\x{00DD}\x{00FD}\x{1EF2}-\x{1EF9}]/u", "y", $str);
+        $str = preg_replace("/[\x{0110}\x{0111}]/u", "d", $str);
+
+        return $str;
+    }
 
     public static function alias($str) {
         $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|À|Á|Ạ|Ả|Ã|Â|A|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", "a", $str);
@@ -149,103 +211,6 @@ class App_Util_Util {
         $src->saveImage($thumb_path);
         return true;
     }
-
-//    public static function resizeIMG($src_file, $dest_file, $width, $height, $prop, $quality) {
-//        $imagetype = array(1 => 'GIF', 2 => 'JPG', 3 => 'PNG');
-//        $imginfo = getimagesize($src_file);
-//        if ($imginfo == null) {
-//            $error = 'COM_IPROPERTY_NO_FILE_FOUND';
-//            return $error;
-//        }
-//
-//        $imginfo[2] = $imagetype[$imginfo[2]];
-//
-//        // GD can only handle JPG & PNG images
-//        if ($imginfo[2] != 'JPG' && $imginfo[2] != 'GIF' && $imginfo[2] != 'PNG') {
-//            $error = "GDERROR1";
-//            return $error;
-//        }
-//
-//        // source height/width
-//        $srcWidth = $imginfo[0];
-//        $srcHeight = $imginfo[1];
-//
-//        if ($prop == 1) {
-//            if (!$width):
-//                return 'COM_IPROPERTY_IMAGE_DIMENSIONS_INVALID'; // can't create image with 0 width and constrain proportions
-//            endif;
-//            // if prop, maintain proportions
-//            $haveratio = $srcWidth / $srcHeight;
-//            if ($haveratio == 1) { // it's square
-//                $destWidth = $width;
-//                $destHeight = $width;
-//            } else { // it's horizontal or vertical
-//                $destWidth = $width;
-//                $destHeight = round($width / $haveratio);
-//            }
-//        } else {
-//            // we don't care about the ratio, we're building to their specs
-//            if (!$height || !$width):
-//                return 'COM_IPROPERTY_IMAGE_DIMENSIONS_INVALID'; // can't create image with 0 width or height
-//            endif;
-//
-//            $destWidth = (int) ($width);
-//            $destHeight = (int) ($height);
-//        }
-//
-//        if (!function_exists('imagecreatefromjpeg')) {
-//            return 'GDERROR2';
-//        }
-//
-//        if ($imginfo[2] == 'JPG') {
-//            $src_img = imagecreatefromjpeg($src_file);
-//        } else if ($imginfo[2] == 'GIF') {
-//            $src_img = imagecreatefromgif($src_file);
-//        } else if ($imginfo[2] == 'PNG') {
-//            $src_img = imagecreatefrompng($src_file);
-//        }
-//
-//        if (!$src_img):
-//            return JText::_('GDERROR3');
-//        endif;
-//
-//        if (function_exists("imagecreatetruecolor")) {
-//            $dst_img = imagecreatetruecolor($destWidth, $destHeight);
-//        } else {
-//            $dst_img = imagecreate($destWidth, $destHeight);
-//        }
-//
-//        if (function_exists("imagecopyresampled")) {
-//            imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, (int) $destWidth, (int) $destHeight, $srcWidth, $srcHeight);
-//        } else {
-//            imagecopyresized($dst_img, $src_img, 0, 0, 0, 0, (int) $destWidth, (int) $destHeight, $srcWidth, $srcHeight);
-//        }
-////
-////        if (!$is_thmb && $settings->watermark) {
-////            /* drop shadow watermark thanks to hkingman */
-////            $wmstr = $settings->watermark_text;
-////            $wmstr = "(c)" . date("Y") . " " . $wmstr;
-////            $ftcolor2 = imagecolorallocate($dst_img, 239, 239, 239);
-////            $ftcolor = imagecolorallocate($dst_img, 15, 15, 15);
-////            // imagestring ($dst_img, 2,10, $destHeight-20, $wmstr, $ftcolor);
-////            imagestring($dst_img, 2, 11, $destHeight - 20, $wmstr, $ftcolor);
-////            imagestring($dst_img, 2, 10, $destHeight - 21, $wmstr, $ftcolor2);
-////        }
-//        imagejpeg($dst_img, $dest_file, $quality);
-//        imagedestroy($src_img);
-//        imagedestroy($dst_img);
-//
-//        // Set mode of uploaded picture
-//        chmod($dest_file, octdec('644'));
-//
-//        // We check that the image is valid
-//        $imginfo = getimagesize($dest_file);
-//        if ($imginfo == null) {
-//            return 'COM_IPROPERTY_IMAGE_INFO_NOT_RETURNED';
-//        } else {
-//            // return true;
-//        }
-//    }
 
     public function getDateInWeek($week, $year) {
         $time = strtotime("1 January $year", time());
