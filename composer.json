@@ -12,9 +12,5 @@
     "require": {
         "php": ">=5.3.3"
     },
-    "autoload": {
-        "classmap": [
-            "src/"
-        ]
-    }
+	"include-path": ["src/"]
 }
