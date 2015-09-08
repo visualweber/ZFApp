@@ -17,7 +17,7 @@
             "App_": "src/"
         },
 		"classmap":[
-            "App_"
+            "src/"
         ]
     },
 	
