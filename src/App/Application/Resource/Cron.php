@@ -30,7 +30,7 @@ class App_Application_Resource_Cron extends Zend_Application_Resource_ResourceAb
 		if (array_key_exists ( 'pluginPaths', $options )) {
 			$cron = new App_Service_Cron ( $options ['pluginPaths'] );
 		} else {
-			$cron = new App_Service_Cron ( array ('App_Service_Cron_Adapter' => realpath ( '../../App/Service/Cron/Adapter/'  ) ) );
+			$cron = new App_Service_Cron ( array ('App_Service_Cron_Adapter' => realpath ( '../../../App/Service/Cron/Adapter/'  ) ) );
 		}
 		
 		if (array_key_exists ( 'actions', $options )) {
