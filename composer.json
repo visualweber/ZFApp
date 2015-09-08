@@ -15,7 +15,11 @@
 	"autoload": {
         "psr-0": {
             "App_": "src/"
-        }
+        },
+		"classmaps":{
+			"App_"
+		}
     },
+	
 	"include-path": ["src/"]
 }
