@@ -16,7 +16,7 @@
         "psr-0": {
             "App_": "src/"
         },
-		"classmaps":[
+		"classmap":[
             "App_"
         ]
     },
