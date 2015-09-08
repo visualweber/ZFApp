@@ -176,9 +176,9 @@ class App_Filesystem_Folder {
      */
     public static function create($path = '', $mode = 0755) {
         static $nested = 0;
-        if (Zend_Registry::isRegistered('logger')):
-            $logger = Zend_Registry::get('logger');
-        endif;
+        //if (Zend_Registry::isRegistered('logger')):
+         //   $logger = Zend_Registry::get('logger');
+        //endif;
 
         // Check to make sure the path valid and clean
         $path = App_Filesystem_Path::clean($path);
@@ -191,7 +191,7 @@ class App_Filesystem_Folder {
             $nested++;
 
             if (($nested > 20) || ($parent == $path)) {
-                $logger->getLog('genmodel')->log(__METHOD__ . ': Infinite loop detected', Zend_Log::WARN);
+                //$logger->getLog('genmodel')->log(__METHOD__ . ': Infinite loop detected', Zend_Log::WARN);
                 $nested--;
 
                 return false;
@@ -241,7 +241,7 @@ class App_Filesystem_Folder {
             }
             if ($inBaseDir == false) {
                 // Return false for JFolder::create because the path to be created is not in open_basedir
-                $logger->getLog('genmodel')->log(__METHOD__ . ': Path not in open_basedir paths', Zend_Log::WARN);
+                //$logger->getLog('genmodel')->log(__METHOD__ . ': Path not in open_basedir paths', Zend_Log::WARN);
 
                 return false;
             }
@@ -253,7 +253,7 @@ class App_Filesystem_Folder {
         // Create the path
         if (!$ret = @mkdir($path, $mode)) {
             @umask($origmask);
-            $logger->getLog('genmodel')->log(__METHOD__ . ': Could not create directory ' . 'Path: ' . $path, Zend_Log::WARN);
+           // $logger->getLog('genmodel')->log(__METHOD__ . ': Could not create directory ' . 'Path: ' . $path, Zend_Log::WARN);
 
             return false;
         }
@@ -280,9 +280,9 @@ class App_Filesystem_Folder {
      */
     public static function copy($src, $dest, $path = '', $force = false, $use_streams = false) {
         @set_time_limit(ini_get('max_execution_time'));
-        if (Zend_Registry::isRegistered('logger')):
-            $logger = Zend_Registry::get('logger');
-        endif;
+        //if (Zend_Registry::isRegistered('logger')):
+          //  $logger = Zend_Registry::get('logger');
+        //endif;
 
         if ($path) {
             $src = JPath::clean($path . '/' . $src);
