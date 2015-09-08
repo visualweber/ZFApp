@@ -14,7 +14,7 @@
     },
 	"autoload": {
         "psr-0": {
-            "App_": "library/",
+            "App_": "src/",
         }
     },
 	"include-path": ["src/"]
