@@ -34,6 +34,12 @@ class App_Application extends Zend_Application {
     protected static $_instance = null;
 
     /**
+     *
+     * @var Zend_Cache_Core|null
+     */
+    protected $_configCache;
+
+    /**
      * Constructor
      *
      * Initialize application. Potentially initializes include_paths, PHP
@@ -47,7 +53,35 @@ class App_Application extends Zend_Application {
      * @return void
      */
     public function __construct($environment, $options = null) {
+        $this->initCache();
         parent::__construct($environment, $options);
+
+        //Zend_Loader_Autoloader::getInstance()->setDefaultAutoloader(array('MIIS_Bootstrap', 'autoload'));
+        //$auth_cookie = $this->getOption('miis_app');
+        //if(isset($auth_cookie['auth']['use_cookie']) && $auth_cookie['auth']['use_cookie']){
+        //    Zend_Auth::getInstance()->setStorage(new MIIS_Auth_Storage_Cookie())->getStorage()->setDomain($auth_cookie['cookie']['domain'])->setExpiration(0);   
+        //}         
+    }
+
+    protected function _cacheId($file) {
+        return md5($file . '_' . $this->getEnvironment());
+    }
+
+    /**
+     * init the caching for doogle application
+     *
+     */
+    protected function initCache() {
+//        $frontendOpts = array('caching' => true, 'lifetime' => 1800, 'automatic_serialization' => true);
+//        $backendOpts = array('cache_dir' => PATH_PROJECT . '/data/cache', 'servers' => array(array('host' => 'localhost', 'port' => 11211)), 'compression' => false);
+//        if (is_null($this->_configCache)) {
+//            if (Zend_Registry::isRegistered('application_cache')) {
+//                $this->_configCache = Zend_Registry::get('application_cache');
+//            } else {
+//                $this->_configCache = Zend_Cache::factory('Core', 'File', $frontendOpts, $backendOpts);
+//                Zend_Registry::set('application_cache', $this->_configCache);
+//            }
+//        }
     }
 
     /**
@@ -60,11 +94,11 @@ class App_Application extends Zend_Application {
         switch ($suffix) {
             case 'ini' :
                 $config = new Zend_Config_Ini($file, $environment, array(
-                            'allowModifications' => true));
+                    'allowModifications' => true));
                 break;
             case 'xml' :
                 $config = new Zend_Config_Xml($file, $environment, array(
-                            'allowModifications' => true));
+                    'allowModifications' => true));
                 break;
             case 'php' :
             case 'inc' :
@@ -108,16 +142,33 @@ class App_Application extends Zend_Application {
      */
     protected function _loadConfig($file) {
         $environment = $this->getEnvironment();
-
         $suffix = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        $index = 'application_cache_' . $environment . '_' . $suffix;
+        //$index = 'application_cache_' . $environment . '_' . $suffix;
+        $index = 'application_cache';
+
+        /*
+          if ($this->_configCache === null || $suffix == 'php' || $suffix == 'inc') { //No need for caching those
+          return parent::_loadConfig($file);
+          }
+          $configMTime = filemtime($file);
+          $cacheId = $this->_cacheId($file);
+          $cacheLastMTime = $this->_configCache->test($cacheId);
+          if ($cacheLastMTime !== false && $configMTime < $cacheLastMTime) { //Valid cache?
+          return $this->_configCache->load($cacheId, true);
+          } else {
+          $config = parent::_loadConfig($file);
+          $this->_configCache->save($config, $cacheId, array(), null);
+
+          return $config;
+          } */
+
         if ($environment != 'production') {
             $config = $this->loadConfigFile($file)->toArray();
         } else {
             // load configuration from cache for other environments
-            if (!$config = $this->_app_cache->load($index)) {
+            if (!$config = $this->_configCache->load($index, true)) {
                 $config = $this->loadConfigFile($file);
-                $this->_app_cache->save($config->toArray(), $index);
+                $this->_configCache->save($config->toArray(), $index);
             }
         }
         Zend_Registry::set('config', $config);

@@ -53,6 +53,12 @@ class App_Controller_Action extends Zend_Controller_Action {
      * 
      */
     protected $config;
+    
+    /**
+     *
+     * @var Bisna\Doctrine\Container 
+     */
+    protected $doctrine;
 
     public function init() {
         $router = $this->getFrontController()->getRouter();
@@ -61,6 +67,9 @@ class App_Controller_Action extends Zend_Controller_Action {
         if (Zend_Registry::isRegistered('config')):
             $this->config = Zend_Registry::get('config');
         endif;
+        if(Zend_Registry::isRegistered('doctrine')){
+            $this->doctrine = Zend_Registry::get('doctrine');
+        }
         $this->view->config = $this->config;
         $this->initLanguage();
     }
@@ -394,6 +403,14 @@ class App_Controller_Action extends Zend_Controller_Action {
             return $mail->send();
         }
         return false;
+    }
+    /**
+     * Retrieve the Doctrine Container.
+     *
+     * @return Bisna\Doctrine\Container
+     */
+    public function getDoctrineContainer() {
+        return $this->doctrine;
     }
 
 }

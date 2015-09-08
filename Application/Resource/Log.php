@@ -43,8 +43,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
         }
 
         $options = $this->getOptions();
-        if ((!isset($this->_logs[$log]) || (null === $this->_logs[$log]))
-                && (in_array($log, array_keys($options)))
+        if ((!isset($this->_logs[$log]) || (null === $this->_logs[$log])) && (in_array($log, array_keys($options)))
         ) {
             $this->_logs[$log] = $this->_initLog($log);
         }
@@ -84,7 +83,7 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
         if (is_null($log)) {
             $revertToDefaultLog = true;
         }
-        
+
         if (!in_array($log, array_keys($this->_options))) {
             if ($revertToDefaultLog) {
                 $log = $this->_defaultLog;
@@ -128,7 +127,12 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
                         $writer = new Zend_Log_Writer_Null();
                         break;
                     case 'stream':
-                        $streamOrUrl = $writerOptions['params']['streamOrUrl'] . '.' . date('dmY') . '.log';
+
+                        if (!App_Filesystem_Folder::exists($writerOptions['params']['streamOrUrl'])) {
+                            if (!App_Filesystem_Folder::create($writerOptions['params']['streamOrUrl'])):
+                            endif;
+                        }
+                        $streamOrUrl = $writerOptions['params']['streamOrUrl'] . DS . date('dmY') . '.log';
                         $mode = isset($writerOptions['params']['mode']) ? $writerOptions['params']['mode'] : 'a';
                         $writer = new Zend_Log_Writer_Stream($streamOrUrl, $mode);
                         break;

@@ -1,6 +1,6 @@
 <?php
 
-class Ext_Application_Resource_Profiler extends Zend_Application_Resource_ResourceAbstract
+class App_Application_Resource_Profiler extends Zend_Application_Resource_ResourceAbstract
 {
     public function init()
     {

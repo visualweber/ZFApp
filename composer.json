@@ -1,0 +1,20 @@
+{
+    "name": "visualweber/realestate_library",
+    "description": "The PHP Unit Testing framework.",
+    "type": "library",
+    "keywords": [
+        "phpunit",
+        "xunit",
+        "testing"
+    ],
+    "homepage": "http://www.visualweber.com/",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "classmap": [
+            "App_"
+        ]
+    }
+}
