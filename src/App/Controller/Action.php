@@ -267,6 +267,31 @@ class App_Controller_Action extends Zend_Controller_Action {
         return (isset($this->options ['xm_service'] ['adapter']) ? $this->options ['xm_service'] ['adapter'] : '');
     }
 
+	public function renderRecure($objects, $depth = '', $maxDepth = -1) {
+        $pages[] = array();
+        foreach ($objects as $key => $value) {
+            $page = $value['object'];
+            $cpage = new Zend_Navigation_Page_Mvc(array(
+                'action' => 'categories',
+                'controller' => 'index',
+                'module' => 'news',
+                'params' => array('id' => $page->getId(), 'alias' => $page->getAlias()),
+                'route' => 'categories',
+                'label' => $page->getName()
+            ));
+            if (is_array($value['child'])) {
+                $arr = $this->renderRecure($value['child'], $depth + 1, $maxDepth);
+                foreach ($arr as $value) {
+                    if ($value) {
+                        $cpage->addPage($value);
+                    }
+                }
+            }
+            $pages[] = $cpage;
+        }
+        return $pages;
+    }
+	
     /**
      * init session state for appilication
      * 
