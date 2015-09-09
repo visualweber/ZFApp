@@ -161,4 +161,42 @@ class App_Util_Util {
             }
         }
     }
+	public function displayRecure($objects) {
+
+        $tree = array();
+        foreach ($objects as $object) {
+            $node = array('id' => $object->getId(), 'object' => $object, 'child' => array());
+            if (!$this->getParent($object)) {
+                $tree [$object->getId()] = $node;
+            } else {
+                if (key_exists($object->getParent()->getId(), $tree)) {
+                    $node = array('id' => $object->getId(), 'object' => $object, 'child' => array());
+                    $tree[$object->getParent()->getId()]['child'][$object->getId()] = $node;
+                } else {
+
+                    $this->findKey($tree, $object);
+                }
+            }
+        }
+
+        return $tree;
+    }
+
+    private function findKey(&$array, $object) {
+        foreach ($array as $key => $value) {
+            if ($object->getParent()->getId() == $key) {
+                $node = array('id' => $object->getId(), 'object' => $value, 'child' => array());
+                $array[$key]['child'][$object->getId()] = $node;
+            } else {
+                $this->findKey($array[$key]['child'], $object);
+            }
+        }
+    }
+
+    private function getParent($object) {
+        if (is_null($object->getParent()) || empty($object->getParent())) {
+            return false;
+        }
+        return $object->getParent();
+    }
 }
