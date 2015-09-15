@@ -272,11 +272,11 @@ class App_Controller_Action extends Zend_Controller_Action {
         foreach ($objects as $key => $value) {
             $page = $value['object'];
             $cpage = new Zend_Navigation_Page_Mvc(array(
-                'action' => 'categories',
-                'controller' => 'index',
+                'action' => 'index',
+                'controller' => 'news',
                 'module' => 'news',
                 'params' => array('id' => $page->getId(), 'alias' => $page->getAlias()),
-                'route' => 'categories',
+//                'route' => 'categories',
                 'label' => $page->getName()
             ));
             if (is_array($value['child'])) {
