@@ -31,7 +31,7 @@ class App_Util_Util {
         $str = preg_replace("/(X)/", "x", $str);
         $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ|Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", "y", $str);
         $str = preg_replace("/(Z)/", "z", $str);
-        $str = preg_replace("/(!|@|%|\^|\*|\(|\)|\+|\=|<|>|\?|\/|,|\.|\:|\;|\'|\"|\“|\”|\&|\#|\[|\]|~|$|_)/", "", $str);
+        $str = preg_replace("/(!|@|%|\^|\*|\(|\)|\+|\=|<|>|\?|\/|,|\|\:|\;|\'|\"|\“|\”|\&|\#|\[|\]|~|$|_)/", "", $str);
         $str = str_replace("&*#39;", "", $str);
         $str = str_replace(" ", "-", $str);
         return $str;
