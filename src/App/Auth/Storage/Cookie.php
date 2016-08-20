@@ -34,7 +34,7 @@ class App_Auth_Storage_Cookie implements App_Auth_Storage_Interface {
     /**
      * @var string
      */
-    protected $_cookieName = APPLICATION_NAME . '-cookies';
+    protected $_cookieName;
 
     /**
      * @var string
@@ -67,6 +67,8 @@ class App_Auth_Storage_Cookie implements App_Auth_Storage_Interface {
     public function __construct($cookieName = null, $secret = null, $remember = null) {
         if (null !== $cookieName) {
             $this->setCookieName($cookieName);
+        } else {
+            $this->setCookieName(APPLICATION_NAME . '-cookies');
         }
         if (null !== $secret) {
             $this->setSecret($secret);
