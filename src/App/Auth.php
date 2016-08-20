@@ -48,7 +48,8 @@ class App_Auth extends Zend_Auth {
         if (null === self::$_instance) {
             self::$_instance = new self();
         }
-        self::$_instance = new self();
+//        self::$_instance = new self();
+
         try {
             if (!Zend_Session::isStarted()):
                 Zend_Session::start();
@@ -58,14 +59,15 @@ class App_Auth extends Zend_Auth {
             echo $e->getMessage();
             echo $e->getTrace();
         }
+        
         self::$_session_id = session_id();
         return self::$_instance;
     }
 
-    public function setClient($client = 0) {
-        if ($client) {
+    public function setClient($client = NULL) {
+        if ($client):
             $this->_client = $client;
-        }
+        endif;
     }
 
 }
