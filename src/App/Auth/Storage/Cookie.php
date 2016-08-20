@@ -34,7 +34,7 @@ class App_Auth_Storage_Cookie implements App_Auth_Storage_Interface {
     /**
      * @var string
      */
-    protected $_cookieName = 'viwebcms-app-cookies';
+    protected $_cookieName = APPLICATION_NAME . '-cookies';
 
     /**
      * @var string
