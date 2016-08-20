@@ -4,7 +4,8 @@
     "type": "library",
     "keywords": [
         "zf1",
-        "visualweber"
+        "visualweber",
+        "zendframework 1 cms"
     ],
     "homepage": "http://www.visualweber.com/",
     "license": "BSD-3-Clause",
