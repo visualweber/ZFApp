@@ -31,9 +31,25 @@ class App_Util_Util {
         $str = preg_replace("/(X)/", "x", $str);
         $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ|Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", "y", $str);
         $str = preg_replace("/(Z)/", "z", $str);
-        $str = preg_replace("/(!|@|%|\^|\*|\(|\)|\+|\=|<|>|\?|\/|,|\|\:|\;|\'|\"|\“|\”|\&|\#|\[|\]|~|$|_)/", "", $str);
+        
+        $str = str_replace("&#212;", "o", $str);
         $str = str_replace("&*#39;", "", $str);
+        $str = str_replace("&amp;", "", $str);
+        
+        $str = str_replace('́', "", $str);
+        $str = str_replace('̀', "", $str);
+        $str = str_replace('̉', "", $str);
+        $str = str_replace('̣', "", $str);
+        $str = str_replace('̃', "", $str);
+        $str = str_replace("$", "", $str);
+        $str = str_replace("(*)", "", $str);
+        
+        $str = preg_replace("/(\[|\]|\(|\))/", ' ', $str); // truong hop ky tu nay nam o cuoi tranh repace thanh dau - o vi tri cuoi cung
+        $str = trim($str);
         $str = str_replace(" ", "-", $str);
+        
+        $str = preg_replace("/(\!|\@|\#|\%|\^|\&|\*|\_|\+|\=|\<|\>|\?|\/|\,|\.|\;|\÷\:|\'|\"|\“|\”|\~|\`|\{|\}|\|)/", "-", $str);
+
         return $str;
     }
 
