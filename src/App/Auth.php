@@ -28,8 +28,14 @@
  */
 class App_Auth extends Zend_Auth {
 
-    protected $_client = 'viwebcms-backend';
+    protected $_client;
     protected static $_session_id = '';
+
+    public function __construct() {
+        defined('APPLICATION_NAME') || define('APPLICATION_NAME', 'viwebcms-webapp');
+        $this->setClient(APPLICATION_NAME);
+        parent::__construct();
+    }
 
     /**
      * Returns an instance of Zend_Auth
