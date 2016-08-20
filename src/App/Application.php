@@ -114,7 +114,10 @@ class App_Application extends Zend_Application {
 
         if ($config instanceof Zend_Config) {
             $ini_path = $config->get('ini_path_extends', '');
-
+            echo '<pre>';
+            print_R($ini_path);
+            echo '</pre>';
+            exit();
             if ($ini_path) {
                 $dir = new DirectoryIterator($ini_path);
                 foreach ($dir as $fileinfo) {
@@ -143,7 +146,7 @@ class App_Application extends Zend_Application {
     protected function _loadConfig($file) {
         $environment = $this->getEnvironment();
         $suffix = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        //$index = 'application_cache_' . $environment . '_' . $suffix;
+        // $index = 'application_cache_' . $environment . '_' . $suffix;
         $index = 'application_cache';
 
         /*
@@ -165,13 +168,19 @@ class App_Application extends Zend_Application {
         if ($environment != 'production') {
             $config = $this->loadConfigFile($file)->toArray();
         } else {
-            // load configuration from cache for other environments
-            if (!$config = $this->_configCache->load($index, true)) {
-                $config = $this->loadConfigFile($file);
-                $this->_configCache->save($config->toArray(), $index);
-            }
+            if ($this->_configCache):
+                // load configuration from cache for other environments
+                if (!$config = $this->_configCache->load($index, true)):
+                    $config = $this->loadConfigFile($file);
+                    $this->_configCache->save($config->toArray(), $index);
+                endif;
+            else:
+                $config = $this->loadConfigFile($file)->toArray();
+            endif;
         }
+
         Zend_Registry::set('config', $config);
+
         return $config;
     }
 
