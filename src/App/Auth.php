@@ -29,7 +29,7 @@
 class App_Auth extends Zend_Auth {
 
     protected $_client;
-    protected static $_session_id = '';
+    protected static $_session_id;
 
     public function __construct() {
         defined('APPLICATION_NAME') || define('APPLICATION_NAME', 'viwebcms-webapp');
@@ -59,7 +59,7 @@ class App_Auth extends Zend_Auth {
             echo $e->getMessage();
             echo $e->getTrace();
         }
-        
+
         self::$_session_id = session_id();
         return self::$_instance;
     }
