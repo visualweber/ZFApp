@@ -11,14 +11,13 @@
     "require": {
         "php": ">=5.3.3"
     },
-	"autoload": {
+    "autoload": {
         "psr-0": {
             "App_": "src/"
         },
-		"classmap":[
+        "classmap":[
             "src/"
         ]
     },
-	
-	"include-path": ["src/"]
+    "include-path": ["src/"]
 }
