@@ -1,6 +1,6 @@
 {
     "name": "visualweber/appzf1",
-    "description": "App library",
+    "description": "App library for Zendframework 1.x",
     "type": "library",
     "keywords": [
         "zf1",
