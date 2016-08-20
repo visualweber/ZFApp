@@ -127,11 +127,15 @@ class App_Application_Resource_Log extends Zend_Application_Resource_ResourceAbs
                         $writer = new Zend_Log_Writer_Null();
                         break;
                     case 'stream':
-
-                        if (!App_Filesystem_Folder::exists($writerOptions['params']['streamOrUrl'])) {
-                            if (!App_Filesystem_Folder::create($writerOptions['params']['streamOrUrl'])):
+                        if (!App_Filesystem_Folder::exists($writerOptions['params']['streamOrUrl'])):
+                            if (App_Filesystem_Folder::create($writerOptions['params']['streamOrUrl'])):
+                                $getout = fopen($writerOptions['params']['streamOrUrl'] . "/index.html", "w") or die("Unable to open file!");
+                                fwrite($getout, "Get out\n");
+                                fclose($getout);
+                            else:
                             endif;
-                        }
+                        else:
+                        endif;
                         $streamOrUrl = $writerOptions['params']['streamOrUrl'] . DS . date('dmY') . '.log';
                         $mode = isset($writerOptions['params']['mode']) ? $writerOptions['params']['mode'] : 'a';
                         $writer = new Zend_Log_Writer_Stream($streamOrUrl, $mode);

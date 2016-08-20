@@ -57,11 +57,19 @@ class App_Application_Resource_Cachemanager extends Zend_Application_Resource_Ca
 
             $options = $this->getOptions();
             if (!App_Filesystem_Folder::exists($options['page']['backend']['options']['cache_dir'])) {
-                if (!App_Filesystem_Folder::create($options['page']['backend']['options']['cache_dir'])):
+                if (App_Filesystem_Folder::create($options['page']['backend']['options']['cache_dir'])):
+                    $getout = fopen($options['page']['backend']['options']['cache_dir'] . "/index.html", "w") or die("Unable to open file!");
+                    fwrite($getout, "Get out\n");
+                    fclose($getout);
+                else:
                 endif;
             }
             if (!App_Filesystem_Folder::exists($options['database']['backend']['options']['cache_dir'])) {
-                if (!App_Filesystem_Folder::create($options['database']['backend']['options']['cache_dir'])):
+                if (App_Filesystem_Folder::create($options['database']['backend']['options']['cache_dir'])):
+                    $getout = fopen($options['database']['backend']['options']['cache_dir'] . "/index.html", "w") or die("Unable to open file!");
+                    fwrite($getout, "Get out\n");
+                    fclose($getout);
+                else:
                 endif;
             }
             foreach ($options as $key => $value) {
