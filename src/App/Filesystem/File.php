@@ -327,9 +327,8 @@ class App_Filesystem_File {
 
             if (!$stream->upload($src, $dest)) {
                 $logger->getLog('filesystem')->log(sprintf(__METHOD__ . ' :upload: %s', $stream->getError()), Zend_Log::WARN);
-                return false;
+                throw new Exception(sprintf(__METHOD__ . ' :upload: %s', $stream->getError()), Zend_Log::WARN);
             }
-
             return true;
         } else {
             $ret = false;
@@ -339,9 +338,11 @@ class App_Filesystem_File {
                     $ret = true;
                 } else {
                     $logger->getLog('filesystem')->log(__METHOD__ . ' :Warning: Failed to change file permissions!', Zend_Log::WARN);
+                    throw new Exception(__METHOD__ . ' :Warning: Failed to change file permissions!', Zend_Log::WARN);
                 }
             } else {
                 $logger->getLog('filesystem')->log(__METHOD__ . ' :Warning: Failed to move file!', Zend_Log::WARN);
+                throw new Exception(__METHOD__ . ' :Warning: Failed to move file!', Zend_Log::WARN);
             }
             return $ret;
         }
