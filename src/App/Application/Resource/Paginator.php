@@ -21,16 +21,16 @@ class App_Application_Resource_Paginator implements Zend_Paginator_Adapter_Inter
 
     public function count() {
         $queryBuilder = $this->_queryBuilderCount;
-        $selectPart = $queryBuilder->getDQLPart('select');
-        $fromPart = $queryBuilder->getDQLPart('from');
-        $fromPart = $fromPart[0];
-
-        $queryBuilder->select('COUNT(' . $fromPart->getAlias() . ') AS total')
-                ->resetDQLPart('orderBy')
-                ->resetDQLPart('groupBy');
-
-        $count = (int) $queryBuilder->getQuery()->getSingleScalarResult();
-
+//        $selectPart = $queryBuilder->getDQLPart('select');
+//        $fromPart = $queryBuilder->getDQLPart('from');
+//        $fromPart = $fromPart[0];
+//
+//        $queryBuilder->select('COUNT(' . $fromPart->getAlias() . ') AS total')
+//                ->resetDQLPart('orderBy')
+//                ->resetDQLPart('groupBy');
+//
+//        $count = (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        $count = count($queryBuilder->getQuery()->getResult());
         return $count;
     }
 

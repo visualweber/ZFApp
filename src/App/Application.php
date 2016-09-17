@@ -113,8 +113,7 @@ class App_Application extends Zend_Application {
         }
 
         if ($config instanceof Zend_Config) {
-            $ini_path = $config->get('ini_path_extends', '');
-            
+            $ini_path = PATH_CONFIG . DS . APPLICATION_ENV;
             if ($ini_path) {
                 $dir = new DirectoryIterator($ini_path);
                 foreach ($dir as $fileinfo) {
@@ -126,9 +125,20 @@ class App_Application extends Zend_Application {
                     }
                 }
             }
-        }
 
-        $config->__unset('ini_path_extends');
+            $ini_path_app = APPLICATION_PATH . DS . 'config' . DS . APPLICATION_ENV;
+            if ($ini_path_app) {
+                $dir = new DirectoryIterator($ini_path_app);
+                foreach ($dir as $fileinfo) {
+                    if (!$fileinfo->isDot() && $fileinfo->isFile()) {
+                        if (strpos($fileinfo->getPathname(), '.ini') !== false) {
+                            $t_config = new Zend_Config_Ini($fileinfo->getPathname(), $environment);
+                            $config->merge($t_config);
+                        }
+                    }
+                }
+            }
+        }
         return $config;
     }
 
