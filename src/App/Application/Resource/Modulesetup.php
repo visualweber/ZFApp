@@ -91,11 +91,12 @@ class App_Application_Resource_Modulesetup extends Zend_Application_Resource_Res
                     $cfg = new Zend_Config_Xml($fullpath, $this->getBootstrap()->getEnvironment());
                     break;
                 default:
-                    throw new Zend_Config_Exception('Invalid format for config file');
+                    return array();
+                    // throw new Zend_Config_Exception('Invalid format for config file ' . $fullpath);
                     break;
             endswitch;
         else:
-            //throw new Zend_Application_Resource_Exception('File does not exist');
+            // throw new Zend_Application_Resource_Exception('File does not exist');
             return array();
         endif;
         return $cfg->toArray();
