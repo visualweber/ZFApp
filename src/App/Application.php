@@ -125,19 +125,6 @@ class App_Application extends Zend_Application {
                     }
                 }
             }
-
-            $ini_path_app = APPLICATION_PATH . DS . 'config' . DS . APPLICATION_ENV;
-            if ($ini_path_app) {
-                $dir = new DirectoryIterator($ini_path_app);
-                foreach ($dir as $fileinfo) {
-                    if (!$fileinfo->isDot() && $fileinfo->isFile()) {
-                        if (strpos($fileinfo->getPathname(), '.ini') !== false) {
-                            $t_config = new Zend_Config_Ini($fileinfo->getPathname(), $environment);
-                            $config->merge($t_config);
-                        }
-                    }
-                }
-            }
         }
         return $config;
     }
